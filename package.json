@@ -1,0 +1,25 @@
+{
+  "name": "vue-multilanguage",
+  "version": "1.0.1",
+  "description": "Multilanguage easy support to VueJS 2",
+  "main": "src/MultiLanguage.js",
+  "readmeFilename": "README.md",
+  "scripts": {
+    "test": "echo \"No support\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonardovilarinho/vue-multilanguage.git"
+  },
+  "keywords": [
+    "vuejs",
+    "multilanguage",
+    "front-end"
+  ],
+  "author": "Leonardo Vilarinho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leonardovilarinho/vue-multilanguage/issues"
+  },
+  "homepage": "https://github.com/leonardovilarinho/vue-multilanguage#readme"
+}
