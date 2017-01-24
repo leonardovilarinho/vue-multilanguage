@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Multilanguage easy support to VueJS 2",
   "main": "src/MultiLanguage.js",
   "readmeFilename": "README.md",
