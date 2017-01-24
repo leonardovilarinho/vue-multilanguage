@@ -46,30 +46,12 @@ MultiLanguage.install = function (Vue, { path, d_language }) {
   Vue.prototype.l = function (value) {
     let content = multi.content,
         params = [],
-        param,
-        bind = [],
-        attr;
+        param;
 
-    if (value.indexOf('|') > -1) {
-      bind = value.split('|');
-      for (attr of bind) {
-        params = attr.split('.');
-        let v = true;
-        for (param of params) {
-          if (content.hasOwnProperty(param)) content = content[param];else {
-            v = false;
-            return;
-          }
-        }
+    params = value.split('.');
 
-        if (v) return;
-      }
-    } else {
-      params = value.split('.');
-
-      for (param of params) {
-        if (content.hasOwnProperty(param)) content = content[param];else return;
-      }
+    for (param of params) {
+      if (content.hasOwnProperty(param)) content = content[param];else return;
     }
 
     return typeof content == 'string' ? content : '';
