@@ -52,22 +52,19 @@ MultiLanguage.install = function(Vue, {path, d_language, store}){
     let content = multi.content, params = [], param, bind = [], attrs
 
     if(value.indexOf('|') !== -1) {
-      bind = value.split('!')
+      bind = value.split('|')
       for (attrs of bind) {
         params = attrs.split('.')
-        let v = true
 
         for (param of params) {
           if(content.hasOwnProperty(param))
             content = content[param]
-          else {
-            v = false
-            return;
-          }
+          else
+            content = multi.content
         }
 
-        if(v)
-          return;
+        if(typeof content == 'string')
+          break;
 
       }
     } else {

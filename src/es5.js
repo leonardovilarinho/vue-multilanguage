@@ -79,17 +79,15 @@ MultiLanguage.install = function (Vue, _ref) {
         attrs = void 0;
 
     if (value.indexOf('|') !== -1) {
-      bind = value.split('!');
+      bind = value.split('|');
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
-
       try {
         for (var _iterator = bind[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           attrs = _step.value;
 
           params = attrs.split('.');
-          var v = true;
 
           var _iteratorNormalCompletion2 = true;
           var _didIteratorError2 = false;
@@ -99,10 +97,10 @@ MultiLanguage.install = function (Vue, _ref) {
             for (var _iterator2 = params[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               param = _step2.value;
 
-              if (content.hasOwnProperty(param)) content = content[param];else {
-                v = false;
-                return;
-              }
+              if (content.hasOwnProperty(param))
+                content = content[param];
+              else
+                content = multi.content;
             }
           } catch (err) {
             _didIteratorError2 = true;
@@ -119,7 +117,7 @@ MultiLanguage.install = function (Vue, _ref) {
             }
           }
 
-          if (v) return;
+          if (typeof content == 'string') break;
         }
       } catch (err) {
         _didIteratorError = true;
