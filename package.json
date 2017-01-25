@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Multilanguage easy support to VueJS 2",
   "main": "src/es5.js",
   "scripts": {
