@@ -5,14 +5,19 @@ class MultiLanguage {
   init(path, language, store) {
     this._store = store
     this._path = path
-    this._language = language
+    if(sessionStorage.getItem('lang_current') == null) {
+      this._language = language
+      sessionStorage.setItem('lang_current', language)
+    } else
+      this._language = sessionStorage.getItem('lang_current')
 
     this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
   }
 
   set language(language) {
     if(language != this._language) {
-      this._language = language
+      sessionStorage.setItem('lang_current', language)
+      this._language = sessionStorage.getItem('lang_current')
       this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
     }
   }

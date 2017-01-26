@@ -16,7 +16,10 @@ var MultiLanguage = function () {
 
       this._store = store;
       this._path = path;
-      this._language = language;
+      if (sessionStorage.getItem('lang_current') == null) {
+        this._language = language;
+        sessionStorage.setItem('lang_current', language);
+      } else this._language = sessionStorage.getItem('lang_current');
 
       this.getContent(false, function (r) {
         return _this._store.state.mlang = JSON.parse(r);
@@ -41,7 +44,8 @@ var MultiLanguage = function () {
       var _this2 = this;
 
       if (language != this._language) {
-        this._language = language;
+        sessionStorage.setItem('lang_current', language);
+        this._language = sessionStorage.getItem('lang_current');
         this.getContent(false, function (r) {
           return _this2._store.state.mlang = JSON.parse(r);
         });
@@ -83,6 +87,7 @@ MultiLanguage.install = function (Vue, _ref) {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
+
       try {
         for (var _iterator = bind[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           attrs = _step.value;
@@ -97,10 +102,7 @@ MultiLanguage.install = function (Vue, _ref) {
             for (var _iterator2 = params[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
               param = _step2.value;
 
-              if (content.hasOwnProperty(param))
-                content = content[param];
-              else
-                content = multi.content;
+              if (content.hasOwnProperty(param)) content = content[param];else content = multi.content;
             }
           } catch (err) {
             _didIteratorError2 = true;
