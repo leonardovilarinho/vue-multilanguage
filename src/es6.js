@@ -85,6 +85,10 @@ MultiLanguage.install = function(Vue, {path, d_language, store}){
     return (typeof content == 'string') ? content : ''
   }
 
+  Vue.l = Vue.prototype.l
+
+  Vue.changeLanguage = Vue.prototype.changeLanguage
+
 }
 
 export default MultiLanguage

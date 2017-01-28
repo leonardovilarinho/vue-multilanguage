@@ -165,6 +165,10 @@ MultiLanguage.install = function (Vue, _ref) {
 
     return typeof content == 'string' ? content : '';
   };
+
+  Vue.l = Vue.prototype.l;
+
+  Vue.changeLanguage = Vue.prototype.changeLanguage;
 };
 
 export default MultiLanguage;
