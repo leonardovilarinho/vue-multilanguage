@@ -9,8 +9,7 @@ String.prototype.format = function () {
 
 class MultiLanguage {
 
-  init(path, language, store) {
-    this._store = store
+  init(path, language) {
     this._path = path
     if(localStorage.getItem('lang_current') == null) {
       this._language = language
@@ -18,19 +17,20 @@ class MultiLanguage {
     } else
       this._language = localStorage.getItem('lang_current')
 
-    this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
+    this.getContent( false, (r) => localStorage.setItem('lang_content', r) )
   }
 
   set language(language) {
     if(language != this._language) {
       localStorage.setItem('lang_current', language)
       this._language = localStorage.getItem('lang_current')
-      this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
+      this.getContent( false, (r) => localStorage.setItem('lang_content', r) )
+      window.location.reload()
     }
   }
 
   get content() {
-    return this._store.state.mlang
+    return JSON.parse( localStorage.getItem('lang_content') )
   }
 
 
@@ -52,9 +52,9 @@ class MultiLanguage {
 
 const multi = new MultiLanguage()
 
-MultiLanguage.install = function(Vue, {path, d_language, store}){
+MultiLanguage.install = function(Vue, {path, d_language}){
 
-  multi.init(path, d_language, store)
+  multi.init(path, d_language)
 
   Vue.prototype.changeLanguage = function(newLang) {
    multi.language = newLang

@@ -26,10 +26,7 @@ var MultiLanguage = function () {
 
   _createClass(MultiLanguage, [{
     key: 'init',
-    value: function init(path, language, store) {
-      var _this = this;
-
-      this._store = store;
+    value: function init(path, language) {
       this._path = path;
       if (localStorage.getItem('lang_current') == null) {
         this._language = language;
@@ -37,7 +34,7 @@ var MultiLanguage = function () {
       } else this._language = localStorage.getItem('lang_current');
 
       this.getContent(false, function (r) {
-        return _this._store.state.mlang = JSON.parse(r);
+        return localStorage.setItem('lang_content', r);
       });
     }
   }, {
@@ -56,20 +53,19 @@ var MultiLanguage = function () {
   }, {
     key: 'language',
     set: function set(language) {
-      var _this2 = this;
-
       if (language != this._language) {
         localStorage.setItem('lang_current', language);
         this._language = localStorage.getItem('lang_current');
         this.getContent(false, function (r) {
-          return _this2._store.state.mlang = JSON.parse(r);
+          return localStorage.setItem('lang_content', r);
         });
+        window.location.reload();
       }
     }
   }, {
     key: 'content',
     get: function get() {
-      return this._store.state.mlang;
+      return JSON.parse(localStorage.getItem('lang_content'));
     }
   }]);
 
@@ -80,11 +76,10 @@ var multi = new MultiLanguage();
 
 MultiLanguage.install = function (Vue, _ref) {
   var path = _ref.path,
-      d_language = _ref.d_language,
-      store = _ref.store;
+      d_language = _ref.d_language;
 
 
-  multi.init(path, d_language, store);
+  multi.init(path, d_language);
 
   Vue.prototype.changeLanguage = function (newLang) {
     multi.language = newLang;
