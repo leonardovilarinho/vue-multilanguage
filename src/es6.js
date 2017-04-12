@@ -1,23 +1,30 @@
 "use strict"
 
+String.prototype.format = function () {
+  var args = [].slice.call(arguments);
+  return this.replace(/(\{\d+\})/g, function (a){
+      return args[ +(a.substr(1, a.length-2)) || 0 ];
+  });
+};
+
 class MultiLanguage {
 
   init(path, language, store) {
     this._store = store
     this._path = path
-    if(sessionStorage.getItem('lang_current') == null) {
+    if(localStorage.getItem('lang_current') == null) {
       this._language = language
-      sessionStorage.setItem('lang_current', language)
+      localStorage.setItem('lang_current', language)
     } else
-      this._language = sessionStorage.getItem('lang_current')
+      this._language = localStorage.getItem('lang_current')
 
     this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
   }
 
   set language(language) {
     if(language != this._language) {
-      sessionStorage.setItem('lang_current', language)
-      this._language = sessionStorage.getItem('lang_current')
+      localStorage.setItem('lang_current', language)
+      this._language = localStorage.getItem('lang_current')
       this.getContent( false, (r) => this._store.state.mlang = JSON.parse(r) )
     }
   }
@@ -53,7 +60,7 @@ MultiLanguage.install = function(Vue, {path, d_language, store}){
    multi.language = newLang
   }
 
-  Vue.prototype.l = function(value) {
+  Vue.prototype.l = function(value, _params = null) {
     let content = multi.content, params = [], param, bind = [], attrs
 
     if(value.indexOf('|') !== -1) {
@@ -81,6 +88,10 @@ MultiLanguage.install = function(Vue, {path, d_language, store}){
           return;
       }
     }
+
+
+    if(typeof _params == 'object')
+      content = content.format(..._params)
 
     return (typeof content == 'string') ? content : ''
   }

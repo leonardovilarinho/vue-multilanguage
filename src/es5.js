@@ -1,8 +1,23 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+String.prototype.format = function () {
+  var args = [].slice.call(arguments);
+  return this.replace(/(\{\d+\})/g, function (a) {
+    return args[+a.substr(1, a.length - 2) || 0];
+  });
+};
 
 var MultiLanguage = function () {
   function MultiLanguage() {
@@ -16,10 +31,10 @@ var MultiLanguage = function () {
 
       this._store = store;
       this._path = path;
-      if (sessionStorage.getItem('lang_current') == null) {
+      if (localStorage.getItem('lang_current') == null) {
         this._language = language;
-        sessionStorage.setItem('lang_current', language);
-      } else this._language = sessionStorage.getItem('lang_current');
+        localStorage.setItem('lang_current', language);
+      } else this._language = localStorage.getItem('lang_current');
 
       this.getContent(false, function (r) {
         return _this._store.state.mlang = JSON.parse(r);
@@ -44,8 +59,8 @@ var MultiLanguage = function () {
       var _this2 = this;
 
       if (language != this._language) {
-        sessionStorage.setItem('lang_current', language);
-        this._language = sessionStorage.getItem('lang_current');
+        localStorage.setItem('lang_current', language);
+        this._language = localStorage.getItem('lang_current');
         this.getContent(false, function (r) {
           return _this2._store.state.mlang = JSON.parse(r);
         });
@@ -76,6 +91,10 @@ MultiLanguage.install = function (Vue, _ref) {
   };
 
   Vue.prototype.l = function (value) {
+    var _content;
+
+    var _params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
     var content = multi.content,
         params = [],
         param = void 0,
@@ -163,6 +182,8 @@ MultiLanguage.install = function (Vue, _ref) {
       }
     }
 
+    if ((typeof _params === 'undefined' ? 'undefined' : _typeof(_params)) == 'object') content = (_content = content).format.apply(_content, _toConsumableArray(_params));
+
     return typeof content == 'string' ? content : '';
   };
 
@@ -171,4 +192,4 @@ MultiLanguage.install = function (Vue, _ref) {
   Vue.changeLanguage = Vue.prototype.changeLanguage;
 };
 
-export default MultiLanguage;
+exports.default = MultiLanguage;
