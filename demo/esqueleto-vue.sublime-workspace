@@ -1,0 +1,476 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"utf",
+				"utf8_encode〔function〕"
+			],
+			[
+				"ex",
+				"explode"
+			],
+			[
+				"utf8",
+				"utf8_encode〔function〕"
+			],
+			[
+				"url",
+				"urlencode〔function〕"
+			],
+			[
+				"text",
+				"textarea\tTag"
+			],
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"incl",
+				"include"
+			],
+			[
+				"Extr",
+				"ExtrairLei.php"
+			],
+			[
+				"get",
+				"getDados\tmethod"
+			],
+			[
+				"dao",
+				"daoestatisticas\tscript"
+			],
+			[
+				"ca",
+				"catch\tkeyword"
+			],
+			[
+				"getFu",
+				"getUTCDate〔function〕"
+			],
+			[
+				"ac",
+				"action\tAttr"
+			],
+			[
+				"p",
+				"public"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"A",
+				"App.vue"
+			],
+			[
+				"mov",
+				"movie_r"
+			],
+			[
+				"co",
+				"columns"
+			],
+			[
+				"li",
+				"link"
+			],
+			[
+				"repo",
+				"repository"
+			],
+			[
+				"repos",
+				"repositórios"
+			],
+			[
+				"o",
+				"owner"
+			],
+			[
+				"Obj",
+				"Object.keys"
+			],
+			[
+				"reposi",
+				"repositórios"
+			],
+			[
+				"to",
+				"token_name"
+			],
+			[
+				"crip",
+				"cript.php"
+			],
+			[
+				"colu",
+				"$columns〔variable〕"
+			],
+			[
+				"fo",
+				"foreach\tforeach …"
+			],
+			[
+				"strto",
+				"strtoupper〔function〕"
+			],
+			[
+				"va",
+				"var_dump"
+			],
+			[
+				"Cr",
+				"CriptografiaTra〔class〕"
+			],
+			[
+				"strtp",
+				"strtoupper〔function〕"
+			],
+			[
+				"lo",
+				"local\tproperty"
+			],
+			[
+				"typ",
+				"typeof\tkeyword"
+			],
+			[
+				"getM",
+				"getMonth\tmethod"
+			],
+			[
+				"mon",
+				"months\tproperty"
+			],
+			[
+				"mo",
+				"monthname\tproperty"
+			],
+			[
+				"da",
+				"day\tproperty"
+			],
+			[
+				"st",
+				"store.ts"
+			],
+			[
+				"w",
+				"week\tproperty"
+			],
+			[
+				"su",
+				"substring\tmethod"
+			],
+			[
+				"val",
+				"value\tparameter"
+			],
+			[
+				"m",
+				"month\tproperty"
+			],
+			[
+				"getF",
+				"getFullYear\tmethod"
+			],
+			[
+				"getIt",
+				"getItem\tmethod"
+			],
+			[
+				"a",
+				"argv"
+			],
+			[
+				"cr",
+				"$cript〔variable〕"
+			],
+			[
+				"comm",
+				"$commands〔variable〕"
+			],
+			[
+				"key",
+				"key_exists〔function〕"
+			],
+			[
+				"User",
+				"App\\Models\\User〔class〕"
+			],
+			[
+				"App",
+				"App\\Models\\Lei"
+			],
+			[
+				"var",
+				"var_dump〔function〕"
+			],
+			[
+				"cont",
+				"conteudo〔variable〕"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 400.0,
+		"last_filter": "Snippet: teste",
+		"selected_items":
+		[
+			[
+				"Snippet: teste",
+				"Snippet: bs3-template.starter"
+			],
+			[
+				"doc",
+				"DocBlockr: Decorate line comment"
+			],
+			[
+				"Snippet: new",
+				"Snippet: Create new table"
+			],
+			[
+				"Snippet: ",
+				"Snippet: html"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 536.0
+	},
+	"console":
+	{
+		"height": 432.0,
+		"history":
+		[
+			"sublime.log_input(True)",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/dev/vue/esqueleto"
+	],
+	"file_history":
+	[
+		"/C/Users/leona/AppData/Roaming/Sublime Text 3/Packages/User/teste.sublime-snippet",
+		"/D/dev/vue/esqueleto/index.html",
+		"/D/dev/vue/esqueleto/esqueleto-vue.sublime-project",
+		"/D/dev/www/leisapp/database/seeds/ExtraiLei.php",
+		"/D/dev/www/leisapp/database/seeds/bind.php",
+		"/D/dev/www/leisapp/routes/web.php",
+		"/D/dev/www/leisapp/database/seeds/LeisSeeder.php",
+		"/D/dev/www/leisapp/config/database.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/app.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/auth.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/broadcasting.php",
+		"/D/dev/www/leisapp/.env",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/view.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/queue.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/database.php",
+		"/D/dev/www/leisapp/vendor/laravel/lumen-framework/config/cache.php",
+		"/D/dev/vue/esqueleto/package.json",
+		"/D/dev/vue/esqueleto/src/App.vue"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"sfdsfdsfd",
+			"ok",
+			"a",
+			"ok",
+			"Art",
+			"SÚMULA",
+			"SÚMULA VINCULANTE",
+			"'eleitoral1.txt' => 'ELEITORAL LEI Nº 4.737, DE 15 DE JULHO DE 1965.'",
+			"preset",
+			"  \"devDependencies\": {\n    \"babel-core\": \"^6.0.0\",\n    \"babel-loader\": \"^6.0.0\",\n    \"babel-preset-latest\": \"^6.0.0\",\n    \"cross-env\": \"^3.0.0\",\n    \"css-loader\": \"^0.25.0\",\n    \"file-loader\": \"^0.9.0\",\n    \"vue-loader\": \"^11.1.4\",\n",
+			"<li>Leonardo</li>\n<li>Patricia</li>\n<li>Zelma</li>\n<li>Leticia</li>\n<li>Lais</li>\n<li>Joao</li>",
+			"li",
+			"stats.",
+			"getDados()",
+			"dados",
+			"getDados()",
+			"}\n",
+			"else if(",
+			"this.param",
+			"this.day"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.doc":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 128.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "esqueleto-vue.sublime-project",
+	"replace":
+	{
+		"height": 76.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app.",
+				"src\\App.vue"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"D:\\vue-livro\\exemplos\\esqueleto\\esqueleto-vue-livro.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 203.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
