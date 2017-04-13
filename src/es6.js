@@ -1,105 +1,74 @@
 "use strict"
 
-String.prototype.format = function () {
-  var args = [].slice.call(arguments);
-  return this.replace(/(\{\d+\})/g, function (a){
-      return args[ +(a.substr(1, a.length-2)) || 0 ];
-  });
-};
-
 class MultiLanguage {
 
-  init(path, language) {
-    this._path = path
-    if(localStorage.getItem('lang_current') == null) {
-      this._language = language
-      localStorage.setItem('lang_current', language)
-    } else
-      this._language = localStorage.getItem('lang_current')
-
-    this.getContent( false, (r) => localStorage.setItem('lang_content', r) )
+  /* constructor, setter languages object */
+  init(_languages) {
+    this.languages = _languages
   }
 
-  set language(language) {
-    if(language != this._language) {
-      localStorage.setItem('lang_current', language)
-      this._language = localStorage.getItem('lang_current')
-      this.getContent( false, (r) => localStorage.setItem('lang_content', r) )
-      window.location.reload()
+  /* get modifiers from directive, find in languages object and replace values */
+  relaunchByDirective(el, binding, vnode) {
+    let current = this.languages[ vnode.context.$language ]
+
+    let location = ''
+
+    location = location.substring(0, location.length -1)
+
+    let hasParams = typeof binding.value != 'undefined'
+    let params = []
+
+    if( hasParams ) {
+
+      params = binding.value
+
+      if( typeof params != 'object' )
+        params = [ params ]
     }
-  }
 
-  get content() {
-    return JSON.parse( localStorage.getItem('lang_content') )
-  }
+    let find = current
+    for(let path of Object.keys(binding.modifiers))
+      find = find[ path.trim() ]
 
-
-  getContent(ass, callback) {
-    let url =  this._path + '/' + this._language + '.json'
-    let rawFile = new XMLHttpRequest()
-
-    rawFile.overrideMimeType("application/json")
-    rawFile.open("GET", url, ass)
-    rawFile.onreadystatechange = function() {
-      if (rawFile.readyState === 4 && rawFile.status == "200")
-        callback(rawFile.responseText)
-      else
-        callback('{}')
+    if(hasParams) {
+      for(let path of Object.keys(params))
+        find = find.replace(`{${path}}`, params[path])
     }
-    rawFile.send(null);
+    el.innerHTML = find
   }
 }
 
 const multi = new MultiLanguage()
 
-MultiLanguage.install = function(Vue, {path, d_language}){
+/* Register in VueJS 2, receive path from language and default language*/
+MultiLanguage.install = function(Vue, languages){
 
-  multi.init(path, d_language)
+  multi.init(languages)
 
-  Vue.prototype.changeLanguage = function(newLang) {
-   multi.language = newLang
+  /* get current language by browser */
+  let userLang = navigator.language || navigator.userLanguage;
+  userLang = userLang.substr(0, 2)
+
+  const init = Vue.prototype._init
+
+  /* define $language variable reative */
+  Vue.prototype._init = function(options) {
+    options = options || {}
+    Vue.util.defineReactive(this, '$language', userLang || 'en')
+    init.call(this, options)
   }
 
-  Vue.prototype.l = function(value, _params = null) {
-    let content = multi.content, params = [], param, bind = [], attrs
-
-    if(value.indexOf('|') !== -1) {
-      bind = value.split('|')
-      for (attrs of bind) {
-        params = attrs.split('.')
-
-        for (param of params) {
-          if(content.hasOwnProperty(param))
-            content = content[param]
-          else
-            content = multi.content
-        }
-
-        if(typeof content == 'string')
-          break;
-
-      }
-    } else {
-      params = value.split('.')
-      for (param of params) {
-        if(content.hasOwnProperty(param))
-          content = content[param]
-        else
-          return;
-      }
-    }
-
-
-    if(typeof _params == 'object')
-      content = content.format(..._params)
-
-    return (typeof content == 'string') ? content : ''
-  }
-
-  Vue.l = Vue.prototype.l
-
-  Vue.changeLanguage = Vue.prototype.changeLanguage
+  /* create directive, change content with modifications in components */
+  Vue.directive('lang', {
+    bind: function (el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode)
+    },
+    update: function (el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode)
+    },
+  })
 
 }
 
+/* export my class */
 export default MultiLanguage

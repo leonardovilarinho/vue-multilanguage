@@ -8,16 +8,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-String.prototype.format = function () {
-  var args = [].slice.call(arguments);
-  return this.replace(/(\{\d+\})/g, function (a) {
-    return args[+a.substr(1, a.length - 2) || 0];
-  });
-};
 
 var MultiLanguage = function () {
   function MultiLanguage() {
@@ -26,114 +17,44 @@ var MultiLanguage = function () {
 
   _createClass(MultiLanguage, [{
     key: 'init',
-    value: function init(path, language) {
-      this._path = path;
-      if (localStorage.getItem('lang_current') == null) {
-        this._language = language;
-        localStorage.setItem('lang_current', language);
-      } else this._language = localStorage.getItem('lang_current');
 
-      this.getContent(false, function (r) {
-        return localStorage.setItem('lang_content', r);
-      });
-    }
-  }, {
-    key: 'getContent',
-    value: function getContent(ass, callback) {
-      var url = this._path + '/' + this._language + '.json';
-      var rawFile = new XMLHttpRequest();
 
-      rawFile.overrideMimeType("application/json");
-      rawFile.open("GET", url, ass);
-      rawFile.onreadystatechange = function () {
-        if (rawFile.readyState === 4 && rawFile.status == "200") callback(rawFile.responseText);else callback('{}');
-      };
-      rawFile.send(null);
+    /* constructor, setter languages object */
+    value: function init(_languages) {
+      this.languages = _languages;
     }
+
+    /* get modifiers from directive, find in languages object and replace values */
+
   }, {
-    key: 'language',
-    set: function set(language) {
-      if (language != this._language) {
-        localStorage.setItem('lang_current', language);
-        this._language = localStorage.getItem('lang_current');
-        this.getContent(false, function (r) {
-          return localStorage.setItem('lang_content', r);
-        });
-        window.location.reload();
+    key: 'relaunchByDirective',
+    value: function relaunchByDirective(el, binding, vnode) {
+      var current = this.languages[vnode.context.$language];
+
+      var location = '';
+
+      location = location.substring(0, location.length - 1);
+
+      var hasParams = typeof binding.value != 'undefined';
+      var params = [];
+
+      if (hasParams) {
+
+        params = binding.value;
+
+        if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) != 'object') params = [params];
       }
-    }
-  }, {
-    key: 'content',
-    get: function get() {
-      return JSON.parse(localStorage.getItem('lang_content'));
-    }
-  }]);
 
-  return MultiLanguage;
-}();
-
-var multi = new MultiLanguage();
-
-MultiLanguage.install = function (Vue, _ref) {
-  var path = _ref.path,
-      d_language = _ref.d_language;
-
-
-  multi.init(path, d_language);
-
-  Vue.prototype.changeLanguage = function (newLang) {
-    multi.language = newLang;
-  };
-
-  Vue.prototype.l = function (value) {
-    var _content;
-
-    var _params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-    var content = multi.content,
-        params = [],
-        param = void 0,
-        bind = [],
-        attrs = void 0;
-
-    if (value.indexOf('|') !== -1) {
-      bind = value.split('|');
+      var find = current;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = bind[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          attrs = _step.value;
+        for (var _iterator = Object.keys(binding.modifiers)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var _path = _step.value;
 
-          params = attrs.split('.');
-
-          var _iteratorNormalCompletion2 = true;
-          var _didIteratorError2 = false;
-          var _iteratorError2 = undefined;
-
-          try {
-            for (var _iterator2 = params[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-              param = _step2.value;
-
-              if (content.hasOwnProperty(param)) content = content[param];else content = multi.content;
-            }
-          } catch (err) {
-            _didIteratorError2 = true;
-            _iteratorError2 = err;
-          } finally {
-            try {
-              if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                _iterator2.return();
-              }
-            } finally {
-              if (_didIteratorError2) {
-                throw _iteratorError2;
-              }
-            }
-          }
-
-          if (typeof content == 'string') break;
+          find = find[_path.trim()];
         }
       } catch (err) {
         _didIteratorError = true;
@@ -149,42 +70,70 @@ MultiLanguage.install = function (Vue, _ref) {
           }
         }
       }
-    } else {
-      params = value.split('.');
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
 
-      try {
-        for (var _iterator3 = params[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          param = _step3.value;
+      if (hasParams) {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
-          if (content.hasOwnProperty(param)) content = content[param];else return;
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
         try {
-          if (!_iteratorNormalCompletion3 && _iterator3.return) {
-            _iterator3.return();
+          for (var _iterator2 = Object.keys(params)[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var path = _step2.value;
+
+            find = find.replace('{' + path + '}', params[path]);
           }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+              _iterator2.return();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
           }
         }
       }
+      el.innerHTML = find;
     }
+  }]);
 
-    if ((typeof _params === 'undefined' ? 'undefined' : _typeof(_params)) == 'object') content = (_content = content).format.apply(_content, _toConsumableArray(_params));
+  return MultiLanguage;
+}();
 
-    return typeof content == 'string' ? content : '';
+var multi = new MultiLanguage();
+
+/* Register in VueJS 2, receive path from language and default language*/
+MultiLanguage.install = function (Vue, languages) {
+
+  multi.init(languages);
+
+  /* get current language by browser */
+  var userLang = navigator.language || navigator.userLanguage;
+  userLang = userLang.substr(0, 2);
+
+  var init = Vue.prototype._init;
+
+  /* define $language variable reative */
+  Vue.prototype._init = function (options) {
+    options = options || {};
+    Vue.util.defineReactive(this, '$language', userLang || 'en');
+    init.call(this, options);
   };
 
-  Vue.l = Vue.prototype.l;
-
-  Vue.changeLanguage = Vue.prototype.changeLanguage;
+  /* create directive, change content with modifications in components */
+  Vue.directive('lang', {
+    bind: function bind(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    },
+    update: function update(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    }
+  });
 };
 
+/* export my class */
 exports.default = MultiLanguage;
