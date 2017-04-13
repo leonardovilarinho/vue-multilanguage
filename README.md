@@ -4,7 +4,6 @@
 
 ### Dependencies
 - VueJS version 2
-- Vuex version 2
 
 ### Installation
 We have two methods of installed, you can use the `npm` or a standalone.
@@ -17,63 +16,50 @@ Use the following command to install as dependency:
 
 #### For standalone installation
 
-To install just copy the file `src/MultiLanguage.js` to your plugins directory.
+To install just copy the file `src/es6.js` to your plugins directory.
 
 
 ### Get Started
 
-**[1]:** Create in your `state` of Vuex a variable with name of `mlang`, she will store all your JSON currently active language:
-
-	.
-	.
-	state: {
-	  mlang: {}
-	}
-	.
-	.
-
-**[2]:** Import MultiLanguage plugin and register it in the Vue globally:
+**[1]:** Import MultiLanguage plugin and register it in the Vue globally:
 
 	import MultiLanguage from 'vue-multilanguage'
-	import Store from '../vuex/store'
-	Vue.use( MultiLanguage, { path: 'src/lang', d_language: 'pt', store: Store } )
 
-> **NOTE**: the plugin should receive as parameters the directory path where will be your language files, the default language of the system and your `store` from Vuex.
+	Vue.use(MultiLanguage, {
+		en: {
+			hi: 'Hello'
+			welcome: 'Welcome, {name}'
+		},
+		pt: {
+			hi: 'Olá',
+			welcome: 'Bem-vindo, {name}'
+		},
+	})
 
-**[3]:** In the language directory create JSON files for each language, for example:
+> **NOTE**: the plugin receives an object with the supported languages and its messages.
 
-Example: `src/lang/en.json`
+**[2]:** In your components use the `v-lang` directive to request a translation, sending as modifiers the path of the text you want to display.
 
-	{
-	  "hello": "The text Hello World",
-	  "errors": {
-		"one": "Is an example message"
-	  }
-	}
+	<p v-lang.hi></p>
+
+If the message to be displayed has parameters like `{name}`, send its values as the policy value.
+
+	<p v-lang.welcome="{name: 'Vue.JS'}"></p>
 
 
-Example: `src/lang/pt.json`
+We can also define unnamed parameters, using `{0}`, so in the directive we would pass only the value to be exchanged, and no longer an object.
 
-	{
-	  "hello": "Texto ola mundo"
-	}
+**[3]:** To change the language currently used by the system, change the `$ language` option value to any of its components, for example:
 
-> Note that the files are different, the pt.json we left without the `errors` object, the plugin will understand as a null value.
+	this.$language = 'en'
 
-**[4]:** In its components use the global method `l()` to get the value of a variable for the current language, as an example:
-
-	<p>{{ l('hello') }}</p>
-	<p>{{ l('errors.one') }}</p>
-
-> For multidimensional objects use the dot (.), as well as in an object, to get internal values.
-
-> The global method `l()` is a shortcut for the variable `$store.state.mlang`
-
-**[5]:** To change the language currently active in the system use the global method `changeLanguage()`, passing as parameter the new language that the system uses:
-
-	this.changeLanguage('en')
-
+The default language will be automatically picked up in the client browser.
 
 ### Contributing
 
 To help in the development and expansion of this repository take a FORK to your account, after you have made your modifications do a PULL REQUEST, it will be parsed and included here since it helps the plugin.
+
+We have an example inside this repository, to execute it, run the commands:
+
+	npm run demo:install
+	npm run demo

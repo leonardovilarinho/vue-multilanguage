@@ -1,10 +1,9 @@
 # MultiLanguage plugin para VueJS 2
 
-> Esse plguin tem o objetivo de fornecer multi idiomas para um sistema feito com VueJS 2
+> Esse plugin tem o objetivo de fornecer multi idiomas para um sistema feito com VueJS 2
 
 ### Dependências
 - VueJS versão 2
-- Vuex versão 2
 
 ### Instalação
 Nós temos duas maneiras de instalar o plugin, a primeira usando o `npm` e a segunda fazendo manualmente
@@ -17,63 +16,50 @@ Use o seguinte comando para instalar o plugin como dependência:
 
 #### Para instalação standalone
 
-Para instalar, copie o arquivo `src/MultiLanguage.js` para sua pasta de plugins.
+Para instalar, copie o arquivo `src/es6.js` para sua pasta de plugins.
 
 
 ### Começando
 
-**[1]:** Crie em sua `state` do Vuex uma variável com nome de `mlang`, elsa servirá para armazenar JSON do idioma atualmente ativo:
-
-	.
-	.
-	state: {
-	  mlang: {}
-	}
-	.
-	.
-
-**[2]:** Importe o plugin MultiLanguage e registre-o globalmete no Vue:
+**[1]:** Importe o plugin MultiLanguage e registre-o globalmente no Vue:
 
 	import MultiLanguage from 'vue-multilanguage'
-	import Store from '../vuex/store'
-	Vue.use( MultiLanguage, { path: 'src/lang', d_language: 'pt', store: Store } )
 
-> **NOTA**: o plugin recet três parâmetros, o caminho para sua pasta com arquivos de idioma, a lingaugem padrão do sistema e sua `store` do Vuex.
+	Vue.use(MultiLanguage, {
+		en: {
+			hi: 'Hello'
+			welcome: 'Welcome, {name}'
+		},
+		pt: {
+			hi: 'Olá',
+			welcome: 'Bem-vindo, {name}'
+		},
+	})
 
-**[3]:** Na pasta destinada aos arquivos de linguagem, crie um arquivo JSON para cada linguagem do sistema.
-
-Exemplo: `src/lang/en.json`
-
-	{
-	  "hello": "The text Hello World",
-	  "errors": {
-		"one": "Is an example message"
-	  }
-	}
+> **NOTA**: o plugin recebe um objeto com os idiomas suportados e suas mensagens.
 
 
-Exemplo: `src/lang/pt.json`
+**[2]:** Nos seus componentes use a diretiva `v-lang` para solicitar uma tradução, enviando como modificadores o caminho do texto que você quer exibir.
 
-	{
-	  "hello": "Texto ola mundo"
-	}
+	<p v-lang.hi></p>
 
-> Note que os arquivos estão diferentes, no pt.json não há o objeto `errors`, quando isso acontece o plugin interpreta o valor como nulo.
+Caso a mensagem a ser exibida tenha parâmetros como `{name}`, envie os respectivos valores como valor da diretiva.
 
-**[4]:** Nos seus componentes use o método global `l()` para pegar o valor de uma variável o idioma atual do sistema, como exemplo:
+	<p v-lang.welcome="{name: 'Vue.JS'}"></p>
 
-	<p>{{ l('hello') }}</p>
-	<p>{{ l('errors.one') }}</p>
+Podemos ainda definir parâmetros sem nome, usando `{0}`, assim na diretiva passaríamos apenas o valor a ser trocado, e não mais um objeto.
 
-> Pra multidimensionais use o ponto (.) para pegar valores internos, assim como usamo-os em objetos.
+**[3]:** Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
 
-> O método global `l()` é um atalho para a variável `$store.state.mlang`
+	this.$language = 'en'
 
-**[5]:** Para alterar a linguagem atualmente usada pelo sistema use o método global `changeLanguage()`, enviando como parâmetro a nova linguagem, por exemplo:
-
-	this.changeLanguage('en')
-
+A linguagem padrão será pega automaticamente no navegador do cliente.
 
 ### Contribuindo
 
-Para ajudar no desenvolvimento e expansão desse plugin faça um FORK do repositório na sua conta do GitHub, quando realizar as modificações faça um PULL REQUEST, iremos analisar se houve uma melhoria com a modificaçao, se sim então elas estará presente aqui.
+Para ajudar no desenvolvimento e expansão desse plugin faça um FORK do repositório na sua conta do GitHub, quando realizar as modificações faça um PULL REQUEST, iremos analisar se houve uma melhoria com a modificação, se sim então elas estará presente aqui.
+
+Temos um exemplo dentro desse repositório, para executa-lo, rode os comandos:
+
+	npm run demo:install
+	npm run demo
