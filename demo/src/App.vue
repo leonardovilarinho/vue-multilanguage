@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    {{ l('hello', ['VueJS', 4]) }}
+    <button v-lang.language="'PT'" @click="$language = 'pt'"></button>
+    <button v-lang.language="'EN'" @click="$language = 'en'"></button>
 
-    <button @click="changeLanguage('en')">EN</button>
-    <button @click="changeLanguage('pt')">PT</button>
+    <p v-lang.welcome.hello="user"></p>
+
+    <p v-lang.profile.info></p>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+  	return {
+  		user: {
+  			name: 'Leonardo',
+  			friends: 20
+  		}
+  	}
+  }
 }
 </script>
