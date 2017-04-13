@@ -27,7 +27,7 @@ To install just copy the file `src/es6.js` to your plugins directory.
 
 	Vue.use(MultiLanguage, {
 		en: {
-			hi: 'Hello'
+			hi: 'Hello',
 			welcome: 'Welcome, {name}'
 		},
 		pt: {
