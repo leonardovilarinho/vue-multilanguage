@@ -1,11 +1,12 @@
 {
   "name": "vue-multilanguage",
-  "version": "1.0.10",
+  "version": "2.0.0",
   "description": "Multilanguage easy support to VueJS 2",
   "main": "src/es5.js",
   "scripts": {
     "test": "echo \"No support\"",
-    "demo": "cd demo && npm run dev"
+    "demo": "cd demo && npm run dev",
+    "demo:install": "cd demo && npm install"
   },
   "repository": {
     "type": "git",
