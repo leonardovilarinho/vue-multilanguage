@@ -20,8 +20,9 @@ var MultiLanguage = function () {
 
 
     /* constructor, setter languages object */
-    value: function init(_languages) {
+    value: function init(_languages, _vue) {
       this.languages = _languages;
+      this.vue = _vue;
     }
 
     /* get modifiers from directive, find in languages object and replace values */
@@ -29,6 +30,9 @@ var MultiLanguage = function () {
   }, {
     key: 'relaunchByDirective',
     value: function relaunchByDirective(el, binding, vnode) {
+
+      this.changeChildrenLanguage(vnode.context.$parent, vnode.context.$language);
+
       var current = this.languages[vnode.context.$language];
 
       var location = '';
@@ -99,6 +103,37 @@ var MultiLanguage = function () {
       }
       el.innerHTML = find;
     }
+  }, {
+    key: 'changeChildrenLanguage',
+    value: function changeChildrenLanguage(node, language) {
+      if (typeof node.$children != 'undefined') {
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+          for (var _iterator3 = node.$children[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            var ch = _step3.value;
+
+            ch.$language = language;
+            this.changeChildrenLanguage(ch, language);
+          }
+        } catch (err) {
+          _didIteratorError3 = true;
+          _iteratorError3 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+              _iterator3.return();
+            }
+          } finally {
+            if (_didIteratorError3) {
+              throw _iteratorError3;
+            }
+          }
+        }
+      }
+    }
   }]);
 
   return MultiLanguage;
@@ -109,7 +144,7 @@ var multi = new MultiLanguage();
 /* Register in VueJS 2, receive path from language and default language*/
 MultiLanguage.install = function (Vue, languages) {
 
-  multi.init(languages);
+  multi.init(languages, Vue);
 
   /* get current language by browser */
   var userLang = navigator.language || navigator.userLanguage;
@@ -130,6 +165,15 @@ MultiLanguage.install = function (Vue, languages) {
       multi.relaunchByDirective(el, binding, vnode);
     },
     update: function update(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    },
+    inserted: function inserted(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    },
+    componentUpdated: function componentUpdated(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    },
+    unbind: function unbind(el, binding, vnode) {
       multi.relaunchByDirective(el, binding, vnode);
     }
   });

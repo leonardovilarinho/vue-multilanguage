@@ -3,12 +3,16 @@
 class MultiLanguage {
 
   /* constructor, setter languages object */
-  init(_languages) {
+  init(_languages, _vue) {
     this.languages = _languages
+    this.vue = _vue
   }
 
   /* get modifiers from directive, find in languages object and replace values */
   relaunchByDirective(el, binding, vnode) {
+
+    this.changeChildrenLanguage(vnode.context.$parent, vnode.context.$language)
+
     let current = this.languages[ vnode.context.$language ]
 
     let location = ''
@@ -36,6 +40,16 @@ class MultiLanguage {
     }
     el.innerHTML = find
   }
+
+  changeChildrenLanguage(node, language)
+  {
+    if(typeof node.$children != 'undefined') {
+      for(let ch of node.$children) {
+        ch.$language = language
+        this.changeChildrenLanguage(ch, language)
+      }
+    }
+  }
 }
 
 const multi = new MultiLanguage()
@@ -43,7 +57,7 @@ const multi = new MultiLanguage()
 /* Register in VueJS 2, receive path from language and default language*/
 MultiLanguage.install = function(Vue, languages){
 
-  multi.init(languages)
+  multi.init(languages, Vue)
 
   /* get current language by browser */
   let userLang = navigator.language || navigator.userLanguage;
@@ -64,6 +78,15 @@ MultiLanguage.install = function(Vue, languages){
       multi.relaunchByDirective(el, binding, vnode)
     },
     update: function (el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode)
+    },
+    inserted: function (el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode)
+    },
+    componentUpdated: function (el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode)
+    },
+    unbind: function (el, binding, vnode) {
       multi.relaunchByDirective(el, binding, vnode)
     },
   })
