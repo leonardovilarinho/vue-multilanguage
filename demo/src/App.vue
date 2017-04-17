@@ -1,24 +1,19 @@
 <template>
   <div id="app">
-    <button v-lang.language="'PT'" @click="$language = 'pt'"></button>
-    <button v-lang.language="'EN'" @click="$language = 'en'"></button>
-
-    <p v-lang.welcome.hello="user"></p>
-
-    <p v-lang.profile.info></p>
+    <lv-menu></lv-menu>
+    <lv-content></lv-content>
   </div>
 </template>
 
 <script>
+import LvMenu from './Menu.vue'
+import LvContent from './Content.vue'
+
 export default {
   name: 'app',
-  data() {
-  	return {
-  		user: {
-  			name: 'Leonardo',
-  			friends: 20
-  		}
-  	}
+  components: {LvMenu, LvContent},
+  mounted() {
+  	console.log(this)
   }
 }
 </script>

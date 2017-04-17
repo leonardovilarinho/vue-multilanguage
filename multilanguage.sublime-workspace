@@ -4,16 +4,52 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"indexOf"
+			],
+			[
+				"param",
+				"params〔variable〕"
+			],
+			[
+				"con",
+				"const〔keyword〕"
+			],
+			[
+				"bin",
+				"binding〔variable〕"
+			],
+			[
+				"lan",
+				"languages〔argument〕"
+			],
+			[
+				"langu",
+				"languages"
+			],
+			[
+				"cha",
+				"changeLanguage('en"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"new",
+				"newLang〔argument〕"
+			],
+			[
+				"set",
+				"setLanguage"
+			],
+			[
 				"_",
 				"_path〔variable〕"
 			],
 			[
 				"cal",
 				"callback"
-			],
-			[
-				"lan",
-				"lang_content"
 			],
 			[
 				"text",
@@ -30,10 +66,6 @@
 			[
 				"pa",
 				"padding-top"
-			],
-			[
-				"set",
-				"setTimeout〔function〕"
 			],
 			[
 				"to",
@@ -252,47 +284,31 @@
 	"buffers":
 	[
 		{
-			"file": "demo/src/App.vue",
+			"file": "README-PT.md",
 			"settings":
 			{
-				"buffer_size": 256,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/es6.js",
-			"settings":
-			{
-				"buffer_size": 3683,
+				"buffer_size": 1998,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "demo/src/main.js",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 232,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "demo/src/lang/en/welcome.js",
-			"settings":
-			{
-				"buffer_size": 58,
+				"buffer_size": 1876,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "demo/src/lang/pt/welcome.js",
+			"contents": "<!DOCTYPE html>\n<html lang=\"pt-br\">\n<head>\n    <title>Exemplo Flexbox</title>\n    <meta charset=\"utf-8\">\n\n    <style type=\"text/css\">\n    \t.main {\n\t\t    width:500px;\n\t\t    background:#EFEFEF;\n\t\t    height:500px;\n\t\t    display: -webkit-flex;\n\t\t    display: flex;\n\t\t}\n\n\t\t.main div {\n\t\t    background:#CCC;\n\t\t    margin-right:10px;\n\n\t\t    -webkit-flex:1 1 auto;\n\t\t    flex:1 1 auto;\n\t\t}\n\n\n\t\t.main div.primeiroDiv {-webkit-order:2;}\n\t\t.main div.segundoDiv {-webkit-order:3;}\n\t\t.main div.terceiroDiv {-webkit-order:1;}\n    </style>\n</head>\n<body>\n\n<div class=\"main\">\n    <div class=\"primeiroDiv\">Um div</div>\n    <div class=\"segundoDiv\">Segundo div</div>\n    <div class=\"terceiroDiv\">Terceiro Div</div>\n</div>\n\n</body>\n</html>",
+			"file": "/C/Users/leona/Desktop/flex.html",
+			"file_size": 759,
+			"file_write_time": 131366065009031559,
 			"settings":
 			{
-				"buffer_size": 58,
-				"encoding": "UTF-8",
+				"buffer_size": 721,
 				"line_ending": "Windows"
 			}
 		}
@@ -385,27 +401,31 @@
 	"expanded_folders":
 	[
 		"/D/dev/vue/repositorios/multilanguage",
-		"/D/dev/vue/repositorios/multilanguage/demo",
-		"/D/dev/vue/repositorios/multilanguage/demo/src",
-		"/D/dev/vue/repositorios/multilanguage/demo/src/lang",
-		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en",
-		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt",
 		"/D/dev/vue/repositorios/multilanguage/src"
 	],
 	"file_history":
 	[
+		"/D/dev/vue/repositorios/multilanguage/demo/src/main.js",
+		"/D/dev/vue/repositorios/multilanguage/README.md",
+		"/D/dev/vue/repositorios/multilanguage/README-PT.md",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt/index.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/language.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/App.vue",
+		"/D/dev/vue/repositorios/multilanguage/package.json",
+		"/D/dev/vue/repositorios/multilanguage/.gitignore",
+		"/D/dev/vue/repositorios/multilanguage/src/es6.js",
+		"/D/dev/vue/repositorios/multilanguage/src/es5.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en/index.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt/welcome.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en/welcome.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt/profile.js",
+		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en/profile.js",
 		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt/welcome.json",
 		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en/welcome.json",
 		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/pt.json",
-		"/D/dev/vue/repositorios/multilanguage/README-PT.md",
-		"/D/dev/vue/repositorios/multilanguage/demo/src/main.js",
 		"/D/dev/vue/repositorios/multilanguage/demo/package.json",
 		"/D/dev/vue/repositorios/multilanguage/demo/src/lang/en.json",
-		"/D/dev/vue/repositorios/multilanguage/src/es6.js",
-		"/D/dev/vue/repositorios/multilanguage/src/es5.js",
-		"/D/dev/vue/repositorios/multilanguage/package.json",
 		"/D/dev/vue/repositorios/multilanguage/demo/.gitignore",
-		"/D/dev/vue/repositorios/multilanguage/.gitignore",
 		"/D/dev/vue/repositorios/multilanguage/demo/main.js",
 		"/D/dev/vue/repositorios/multilanguage/demo/Demo.vue",
 		"/D/dev/vue/contribute/test/unit/modules/observer/observer.spec.js",
@@ -556,163 +576,108 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "demo/src/App.vue",
+					"file": "README-PT.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 256,
+						"buffer_size": 1998,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								47,
-								47
+								706,
+								706
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
+							"color_scheme": "Packages/User/Color Highlighter/themes/base16-ocean.dark (SL).tmTheme",
 							"git_gutter_enabled": true,
-							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "src/es6.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3683,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2769,
-								2769
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"git_gutter_enabled": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1340.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "demo/src/main.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 232,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								150,
-								153
-							]
-						],
-						"settings":
-						{
-							"auto_complete": false,
-							"git_gutter_enabled": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 342.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "demo/src/lang/en/welcome.js",
+					"buffer": 1,
+					"file": "README.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 58,
+						"buffer_size": 1876,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								58
+								652,
+								652
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
+							"color_scheme": "Packages/User/Color Highlighter/themes/base16-ocean.dark (SL).tmTheme",
 							"git_gutter_enabled": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 342.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "demo/src/lang/pt/welcome.js",
+					"buffer": 2,
+					"file": "/C/Users/leona/Desktop/flex.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 58,
+						"buffer_size": 721,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								56,
-								56
+								677,
+								677
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
-							"git_gutter_enabled": true,
-							"syntax": "Packages/JavaScriptNext - ES6 Syntax/JavaScriptNext.tmLanguage"
+							"color_scheme": "Packages/User/Color Highlighter/themes/base16-ocean.dark (SL).tmTheme",
+							"syntax": "Packages/Vuejs Complete Package/vue.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 171.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				}
+			]
+		},
+		{
+			"sheets":
+			[
 			]
 		}
 	],
@@ -733,11 +698,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -909,7 +881,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 338.0,
+	"side_bar_width": 221.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

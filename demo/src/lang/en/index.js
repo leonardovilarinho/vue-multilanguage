@@ -1,8 +1,9 @@
-import profile from './profile'
-import welcome from './welcome'
+import categories from './categories'
+import content from './content'
 
 export default {
-	profile,
-	welcome,
-	language: 'Change language to {0}'
+	categories,
+	content,
+	language: 'Change language to {0}',
+	title: 'My demo'
 }
