@@ -63,3 +63,11 @@ Temos um exemplo dentro desse repositório, para executa-lo, rode os comandos:
 
 	npm run demo:install
 	npm run demo
+
+Escreva suas modificações no arquivo es6.js, usando o ES2015, use o seguinte site para gerar o es5.js:
+
+https://babeljs.io/repl
+
+Você pode ainda contribuir com a documentação, apesar de seu pequena, dê suporte a novas linguagens, caso veja algo de errado no inglês corrija :)
+
+Obrigado por contribuir!
