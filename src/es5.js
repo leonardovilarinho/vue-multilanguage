@@ -104,31 +104,93 @@ var MultiLanguage = function () {
       el.innerHTML = find;
     }
   }, {
+    key: 'search',
+    value: function search(_language, path, params) {
+      var current = this.languages[_language];
+
+      if (path.indexOf('.') !== -1) path = path.split('.');else path = [path];
+
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) != 'object') params = [params];
+
+      var find = current;
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = path[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var p = _step3.value;
+
+          find = find[p.trim()];
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3.return) {
+            _iterator3.return();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = Object.keys(params)[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var _path2 = _step4.value;
+
+          find = find.replace('{' + _path2 + '}', params[_path2]);
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+            _iterator4.return();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      return find;
+    }
+  }, {
     key: 'changeChildrenLanguage',
     value: function changeChildrenLanguage(node, language) {
       if (typeof node.$children != 'undefined') {
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
 
         try {
-          for (var _iterator3 = node.$children[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var ch = _step3.value;
+          for (var _iterator5 = node.$children[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            var ch = _step5.value;
 
             ch.$language = language;
             this.changeChildrenLanguage(ch, language);
           }
         } catch (err) {
-          _didIteratorError3 = true;
-          _iteratorError3 = err;
+          _didIteratorError5 = true;
+          _iteratorError5 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion3 && _iterator3.return) {
-              _iterator3.return();
+            if (!_iteratorNormalCompletion5 && _iterator5.return) {
+              _iterator5.return();
             }
           } finally {
-            if (_didIteratorError3) {
-              throw _iteratorError3;
+            if (_didIteratorError5) {
+              throw _iteratorError5;
             }
           }
         }
@@ -157,6 +219,12 @@ MultiLanguage.install = function (Vue, languages) {
     options = options || {};
     Vue.util.defineReactive(this, '$language', userLang || 'en');
     init.call(this, options);
+  };
+
+  Vue.prototype.translate = function (language, path) {
+    var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    return multi.search(language, path, params);
   };
 
   /* create directive, change content with modifications in components */

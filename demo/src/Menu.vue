@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<strong v-lang.title></strong>
+		<strong>{{title}}</strong>
 		<button v-lang.language="'PT'" @click="$language = 'pt'"></button>
     	<button v-lang.language="'EN'" @click="$language = 'en'"></button>
 	</div>
@@ -9,5 +9,10 @@
 <script>
 export default{
 	name: 'lv-menu',
+	computed: {
+		title() {
+			return this.translate(this.$language, 'title')
+		}
+	},
 }
 </script>

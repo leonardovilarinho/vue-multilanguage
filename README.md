@@ -49,7 +49,15 @@ If the message to be displayed has parameters like `{name}`, send its values as 
 
 We can also define unnamed parameters, using `{0}`, so in the directive we would pass only the value to be exchanged, and no longer an object.
 
-**[3]:** To change the language currently used by the system, change the `$ language` option value to any of its components, for example:
+**[3]:** Finally, we still have the `translate` method that does the same as the previous directive, however it is a method, use it as computed:
+
+	computed: {
+		welcome()  {
+			return this.translate(this.$language, 'welcome', 'Vue.JS')
+		}
+	}
+
+**[4]:** To change the language currently used by the system, change the `$ language` option value to any of its components, for example:
 
 	this.$language = 'en'
 

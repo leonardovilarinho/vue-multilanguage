@@ -41,6 +41,27 @@ class MultiLanguage {
     el.innerHTML = find
   }
 
+  search(_language, path, params) {
+    let current = this.languages[ _language ]
+
+    if(path.indexOf('.') !== -1)
+      path = path.split('.')
+    else
+      path = [path]
+
+    if( typeof params != 'object' )
+      params = [ params ]
+
+    let find = current
+    for(let p of path)
+      find = find[ p.trim() ]
+    for(let path of Object.keys(params))
+      find = find.replace(`{${path}}`, params[path])
+
+
+    return find
+  }
+
   changeChildrenLanguage(node, language)
   {
     if(typeof node.$children != 'undefined') {
@@ -70,6 +91,10 @@ MultiLanguage.install = function(Vue, languages){
     options = options || {}
     Vue.util.defineReactive(this, '$language', userLang || 'en')
     init.call(this, options)
+  }
+
+  Vue.prototype.translate = function(language, path, params = {}) {
+    return multi.search(language, path, params)
   }
 
   /* create directive, change content with modifications in components */

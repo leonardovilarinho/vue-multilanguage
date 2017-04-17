@@ -49,7 +49,15 @@ Caso a mensagem a ser exibida tenha parâmetros como `{name}`, envie os respecti
 
 Podemos ainda definir parâmetros sem nome, usando `{0}`, assim na diretiva passaríamos apenas o valor a ser trocado, e não mais um objeto.
 
-**[3]:** Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
+**[3]:** Por fim, ainda temos o método `translate` que faz o mesmo que a diretiva anterior, porém é um método, use-o como computed:
+
+	computed: {
+		welcome()  {
+			return this.translate(this.$language, 'welcome', 'Vue.JS')
+		}
+	}
+
+**[4]:** Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
 
 	this.$language = 'en'
 
