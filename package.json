@@ -1,8 +1,9 @@
 {
   "name": "vue-multilanguage",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "Multilanguage easy support to VueJS 2",
-  "main": "src/es5.js",
+  "main": "dist/vue-multilanguage.js",
+  "module": "src/vue-multilanguage.js",
   "scripts": {
     "test": "echo \"No support\"",
     "demo": "cd demo && npm run dev",
@@ -18,6 +19,10 @@
     "front-end"
   ],
   "author": "Leonardo Vilarinho",
+  "contributors": [{ 
+    "name": "Matthew Dean", 
+    "url": "https://github.com/matthew-dean"
+  }],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/leonardovilarinho/vue-multilanguage/issues"
