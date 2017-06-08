@@ -118,27 +118,30 @@ class MultiLanguage {
       params = [ params ]
 
     let find = current
-    for(let p of path)
+    path.forEach((p) => {
       find = find[ p.trim() ]
-    for(let path of Object.keys(params))
+    })
+
+    Object.keys(params).forEach((path) => {
       find = find.replace(`{${path}}`, params[path])
+    })
 
     return find
   }
 
   changeChildrenLanguage(node, language) {
     if(typeof node.$children != 'undefined') {
-      for(let ch of node.$children) {
+      node.$children.forEach((ch) => {
         ch.$language = language
         this.changeChildrenLanguage(ch, language)
-      }
+      });
     }
   }
 
   matchLanguage(lang) {
     if( !lang ) return ''
     let match = ''
-    Object.keys(this.languages).forEach(function(path) {
+    Object.keys(this.languages).forEach((path) => {
       path = path.toLowerCase()
       if(lang.toLowerCase() === path) {
         match = path
@@ -146,7 +149,7 @@ class MultiLanguage {
     })
     /* if language = 'en', match a 'en-CA' language key */
     // if( !match ) {
-    //   Object.keys(this.languages).forEach(function(path) {
+    //   Object.keys(this.languages).forEach((path) => {
     //     path = path.toLowerCase()
     //     if(lang.toLowerCase() === path.substr(0,2)) {
     //       match = path

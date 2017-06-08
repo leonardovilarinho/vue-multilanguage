@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Multilanguage easy support to VueJS 2",
   "main": "dist/vue-multilanguage.js",
   "module": "src/vue-multilanguage.js",
