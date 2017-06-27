@@ -13,9 +13,6 @@ import LvContent from './Content.vue'
 
 export default {
   name: 'app',
-  components: {LvMenuTop, LvMenuBottom, LvContent},
-  mounted() {
-  	console.log(this)
-  }
+  components: {LvMenuTop, LvMenuBottom, LvContent}
 }
 </script>
