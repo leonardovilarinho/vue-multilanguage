@@ -26,6 +26,7 @@ Para instalar, copie o arquivo `src/es6.js` para sua pasta de plugins.
 	import MultiLanguage from 'vue-multilanguage'
 
 	Vue.use(MultiLanguage, {
+		default: 'pt',
 		en: {
 			hi: 'Hello',
 			welcome: 'Welcome, {name}'
@@ -38,8 +39,8 @@ Para instalar, copie o arquivo `src/es6.js` para sua pasta de plugins.
 
 > **NOTA**: o plugin recebe um objeto com os idiomas suportados e suas mensagens.
 
-
-**[2]:** Nos seus componentes use a diretiva `v-lang` para solicitar uma tradução, enviando como modificadores o caminho do texto que você quer exibir.
+### Usando em componentes
+Nos seus componentes use a diretiva `v-lang` para solicitar uma tradução, enviando como modificadores o caminho do texto que você quer exibir.
 
 	<p v-lang.hi></p>
 
@@ -49,19 +50,85 @@ Caso a mensagem a ser exibida tenha parâmetros como `{name}`, envie os respecti
 
 Podemos ainda definir parâmetros sem nome, usando `{0}`, assim na diretiva passaríamos apenas o valor a ser trocado, e não mais um objeto.
 
-**[3]:** Por fim, ainda temos o método `translate` que faz o mesmo que a diretiva anterior, porém é um método, use-o como computed:
 
-	computed: {
-		welcome()  {
-			return this.translate(this.$language, 'welcome', 'Vue.JS')
+### Incorporando mensagens em componentes
+
+Ás vezes suas mensagens são usadas em apenas um componente, pensando nisso, podemos declarar mensagens locais, no corpo do componente e usadas normalmente:
+
+```html
+<template>
+	<p v-lang.hi></p>
+</template>
+<script>
+	export default {
+		data() { return {} }
+		messages: {
+			en: {
+				hi: 'Hello'
+			},
+			pt: {
+				hi: 'Olá'
+			}
 		}
 	}
+</script>
+```
 
-**[4]:** Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
+O plugin vue-multilanguage examinará primeiro a opção `messages` no componente local, antes de olhar para mensagens definidas globalmente.
+
+Você também pode incorporar o idioma padrão diretamente no seu template, desde que tenha um `default` definido na configuração do plugin. Isso pode poupar muito tempo se você estiver traduzindo um site existente que anteriormente não tinha localização.
+
+```html
+<template>
+	<p v-lang.hi>Hello</p>
+</template>
+<script>
+	export default {
+		data() { return {} }
+		messages: {
+			pt: {
+				hi: 'Olá'
+			}
+		}
+	}
+</script>
+```
+
+Note que você ainda pode usar substituições ao configurar mensagens padrão com marcações.
+
+
+```html
+<template>
+	<p v-lang.welcome="{name: 'Vue.JS'}">Welcome, {name}</p>
+</template>
+<script>
+	export default {
+		data() { return {} }
+		messages: {
+			pt: {
+				welcome: 'Bem-vindo, {name}'
+			}
+		}
+	}
+</script>
+```
+
+### Uso na programação
+Existe um método `translate 'que você pode usar para recuperar uma tradução. Por exemplo:
+
+```js
+computed: {
+	welcome()  {
+		return this.translate(this.$language, 'welcome', 'Vue.JS')
+	}
+}
+```
+
+Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
 
 	this.$language = 'en'
 
-A linguagem padrão será pega automaticamente no navegador do cliente.
+A linguagem padrão será pego automaticamente no navegador do cliente, caso não encontre-mos, o primeiro idioma da lista será usado.
 
 ### Contribuindo
 
@@ -72,9 +139,6 @@ Temos um exemplo dentro desse repositório, para executa-lo, rode os comandos:
 	npm run demo:install
 	npm run demo
 
-Escreva suas modificações no arquivo es6.js, usando o ES2015, use o seguinte site para gerar o es5.js:
-
-https://babeljs.io/repl
 
 Você pode ainda contribuir com a documentação, apesar de seu pequena, dê suporte a novas linguagens, caso veja algo de errado no inglês corrija :)
 

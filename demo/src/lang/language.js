@@ -2,7 +2,7 @@ import pt from './pt/index'
 import en from './en/index'
 
 export default {
-	default: 'en',
+	default: 'pt',
 	pt: pt,
 	en: en
 }

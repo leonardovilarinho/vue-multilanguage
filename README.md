@@ -78,7 +78,7 @@ Sometimes it's easier to use the component model of Vue to manage your languages
 
 The vue-multilanguage plugin will first look at the `messages` option in the local component before looking at globally-defined messages.
 
-You can also embed the default language directly in your markup! This can save you a lot of time if you are translating an existing site that didn't previously have localization.
+You can also embed the default language directly into your template, as long as it has a `default` defined in the plugin's configuration. This can save you a lot of time if you are translating an existing site that didn't previously have localization.
 
 ```html
 <template>
@@ -141,9 +141,6 @@ We have an example inside this repository, to execute it, run the commands:
 	npm run demo:install
 	npm run demo
 
-Write your modifications to the es6.js file, using ES2015, use the following site to generate es5.js:
-
-https://babeljs.io/repl
 
 You can still contribute to the documentation, although your little one, support new languages, if you see something wrong in English correct it :)
 
