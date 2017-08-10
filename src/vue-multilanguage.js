@@ -1,213 +1,235 @@
-"use strict"
+"use strict";
 
-class MultiLanguage {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-  /* constructor, setter languages object */
-  init(_languages, _vue) {
-    this.defaultLanguage = ''
-    this.languages = _languages
-    this.vue = _vue
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-    let userLang
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    if (_languages.default) {
-      this.defaultLanguage = _languages.default
-      delete _languages.default
-      /* set current language from default */
-      userLang = this.matchLanguage(this.defaultLanguage)
-    }
-    /* if we're in a browser */
-    let isBrowser = false
-    try {
-      isBrowser = typeof navigator !== 'undefined'
-    }
-    catch(e) {}
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    if ( !userLang && isBrowser ) {
-      userLang = navigator.language || navigator.userLanguage
-      /* First try matching full language, then shortened code.
-       * This is important for languages like Chinese */
-      userLang = this.matchLanguage(userLang) || this.matchLanguage(userLang.substr(0, 2))
-    }
-    /* if all else fails, choose the first language */
-    if ( !userLang ) {
-      userLang = Object.keys(this.languages)[0]
-    }
-    this.userLang = userLang
+var MultiLanguage = function () {
+  function MultiLanguage() {
+    _classCallCheck(this, MultiLanguage);
   }
 
-  /* get modifiers from directive, find in languages object and replace values */
-  relaunchByDirective(el, binding, vnode) {
+  _createClass(MultiLanguage, [{
+    key: 'init',
 
-    this.changeChildrenLanguage(vnode.context.$parent, vnode.context.$language)
 
-    let hasParams = typeof binding.value !== 'undefined'
-    let current, params = []
+    /* constructor, setter languages object */
+    value: function init(_languages, _vue) {
+      this.defaultLanguage = '';
+      this.languages = _languages;
+      this.vue = _vue;
 
-    if( hasParams ) {
+      var userLang = void 0;
 
-      params = binding.value
-
-      if( typeof params !== 'object' )
-        params = [ params ]
-    }
-
-    function getLanguage(current) {
-      if( !current ) return
-
-      let find = current
-      
-      Object.keys(binding.modifiers).forEach((path) => {
-        let f = find[ path.trim() ]
-        if( f ) {
-          find = f
-        }
-      })
-
-      return typeof find === 'string' ? find : ''
-    }
-
-    if( !vnode.context.$options.messages || !(current = getLanguage(vnode.context.$options.messages[ vnode.context.$language ])) )
-      current = getLanguage(this.languages[ vnode.context.$language ])
-
-    // Set the key value from the markup itself
-    if( !current ) {
-      let val = el.innerHTML.trim()
-      // Value is embedded, so we need to store it so that we don't lose it when switching languages
-      if( val !== '' ) {
-        if ( !vnode.context.$options.messages ) {
-          vnode.context.$options.messages = {}
-        }
-        let optionPath = vnode.context.$options.messages[ vnode.context.$language ]
-        if ( !optionPath ) {
-          optionPath = vnode.context.$options.messages[ vnode.context.$language ] = {}
-        } 
-        let modifiers = Object.keys(binding.modifiers)
-
-        modifiers.forEach((path, idx) => {
-          if( (idx + 1) === modifiers.length ) {
-            optionPath[path] = {}
-            optionPath = optionPath[path]
-          }
-          else {
-            optionPath[path] = val
-          }
-        })
-        
-        current = val
+      if (_languages.default) {
+        this.defaultLanguage = _languages.default;
+        delete _languages.default;
+        /* set current language from default */
+        userLang = this.matchLanguage(this.defaultLanguage);
       }
+      /* if we're in a browser */
+      var isBrowser = false;
+      try {
+        isBrowser = typeof navigator !== 'undefined';
+      } catch (e) {}
+
+      if (!userLang && isBrowser) {
+        userLang = navigator.language || navigator.userLanguage;
+        /* First try matching full language, then shortened code.
+         * This is important for languages like Chinese */
+        userLang = this.matchLanguage(userLang) || this.matchLanguage(userLang.substr(0, 2));
+      }
+      /* if all else fails, choose the first language */
+      if (!userLang) {
+        userLang = Object.keys(this.languages)[0];
+      }
+      this.userLang = userLang;
     }
 
-    if( current && hasParams ) {
-      Object.keys(params).forEach((path) => {
-        current = current.replace(`{${path}}`, params[path])
-      })
+    /* get modifiers from directive, find in languages object and replace values */
+
+  }, {
+    key: 'relaunchByDirective',
+    value: function relaunchByDirective(el, binding, vnode) {
+
+      this.changeChildrenLanguage(vnode.context.$parent, vnode.context.$language);
+
+      var hasParams = typeof binding.value !== 'undefined';
+      var current = void 0,
+          params = [];
+
+      if (hasParams) {
+
+        params = binding.value;
+
+        if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) !== 'object') params = [params];
+      }
+
+      function getLanguage(current) {
+        if (!current) return;
+
+        var find = current;
+
+        Object.keys(binding.modifiers).forEach(function (path) {
+          var f = find[path.trim()];
+          if (f) {
+            find = f;
+          }
+        });
+
+        return typeof find === 'string' ? find : '';
+      }
+
+      if (!vnode.context.$options.messages || !(current = getLanguage(vnode.context.$options.messages[vnode.context.$language]))) current = getLanguage(this.languages[vnode.context.$language]
+
+      // Set the key value from the markup itself
+      );if (!current) {
+        var val = el.innerHTML.trim
+        // Value is embedded, so we need to store it so that we don't lose it when switching languages
+        ();if (val !== '') {
+          if (!vnode.context.$options.messages) {
+            vnode.context.$options.messages = {};
+          }
+          var optionPath = vnode.context.$options.messages[vnode.context.$language];
+          if (!optionPath) {
+            optionPath = vnode.context.$options.messages[vnode.context.$language] = {};
+          }
+          var modifiers = Object.keys(binding.modifiers);
+
+          modifiers.forEach(function (path, idx) {
+            if (idx + 1 === modifiers.length) {
+              optionPath[path] = {};
+              optionPath = optionPath[path];
+            } else {
+              optionPath[path] = val;
+            }
+          });
+
+          current = val;
+        }
+      }
+
+      if (current && hasParams) {
+        Object.keys(params).forEach(function (path) {
+          current = current.replace('{' + path + '}', params[path]);
+        });
+      }
+
+      el.innerHTML = current;
     }
-    
-    el.innerHTML = current
-  }
+  }, {
+    key: 'search',
+    value: function search(current, path, params) {
 
-  search(current, path, params) {
+      if (path.indexOf('.') !== -1) path = path.split('.');else path = [path];
 
-    if(path.indexOf('.') !== -1)
-      path = path.split('.')
-    else
-      path = [path]
+      if ((typeof params === 'undefined' ? 'undefined' : _typeof(params)) != 'object') params = [params];
 
-    if( typeof params != 'object' )
-      params = [ params ]
-
-    let find = current
-    path.forEach((p) => {
-      find = find[ p.trim() ]
-    })
-
-    Object.keys(params).forEach((path) => {
-      find = find.replace(`{${path}}`, params[path])
-    })
-
-    return find
-  }
-
-  changeChildrenLanguage(node, language) {
-    if(typeof node.$children != 'undefined') {
-      node.$children.forEach((ch) => {
-        ch.$language = language
-        this.changeChildrenLanguage(ch, language)
+      var find = current;
+      path.forEach(function (p) {
+        find = find[p.trim()];
       });
+
+      Object.keys(params).forEach(function (path) {
+        find = find.replace('{' + path + '}', params[path]);
+      });
+
+      return find;
     }
-  }
+  }, {
+    key: 'changeChildrenLanguage',
+    value: function changeChildrenLanguage(node, language) {
+      var _this = this;
 
-  matchLanguage(lang) {
-    if( !lang ) return ''
-    let match = ''
-    Object.keys(this.languages).forEach((path) => {
-      path = path.toLowerCase()
-      if(lang.toLowerCase() === path) {
-        match = path
+      if (typeof node.$children != 'undefined') {
+        node.$children.forEach(function (ch) {
+          ch.$language = language;
+          _this.changeChildrenLanguage(ch, language);
+        });
       }
-    })
-    /* if language = 'en', match a 'en-CA' language key */
-    // if( !match ) {
-    //   Object.keys(this.languages).forEach((path) => {
-    //     path = path.toLowerCase()
-    //     if(lang.toLowerCase() === path.substr(0,2)) {
-    //       match = path
-    //     }
-    //   })
-    // }
-    return match
-  }
-}
+    }
+  }, {
+    key: 'matchLanguage',
+    value: function matchLanguage(lang) {
+      if (!lang) return '';
+      var match = '';
+      Object.keys(this.languages).forEach(function (path) {
+        path = path.toLowerCase();
+        if (lang.toLowerCase() === path) {
+          match = path;
+        }
+      }
+      /* if language = 'en', match a 'en-CA' language key */
+      // if( !match ) {
+      //   Object.keys(this.languages).forEach((path) => {
+      //     path = path.toLowerCase()
+      //     if(lang.toLowerCase() === path.substr(0,2)) {
+      //       match = path
+      //     }
+      //   })
+      // }
+      );return match;
+    }
+  }]);
 
-const multi = new MultiLanguage()
+  return MultiLanguage;
+}();
+
+var multi = new MultiLanguage();
 
 /* Register in VueJS 2, receive path from language and default language*/
-MultiLanguage.install = function(Vue, languages){
+MultiLanguage.install = function (Vue, languages) {
 
-  multi.init(languages, Vue)
+  multi.init(languages, Vue);
 
-  const init = Vue.prototype._init
+  var init = Vue.prototype._init;
 
   /* define $language variable reative */
-  Vue.prototype._init = function(options) {
-    options = options || {}
-    Vue.util.defineReactive(this, '$language', multi.userLang)
-    init.call(this, options)
-  }
+  Vue.prototype._init = function (options) {
+    options = options || {};
+    Vue.util.defineReactive(this, '$language', multi.userLang);
+    init.call(this, options);
+  };
 
-  Vue.prototype.translate = function(language, path, params = {}) {
-    let result = ''
+  Vue.prototype.translate = function (language, path) {
+    var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-    if (this.$options.messages && this.$options.messages[ language ]) {
-      result = multi.search(this.$options.messages[ language ], path, params)
+    var result = '';
+
+    if (this.$options.messages && this.$options.messages[language]) {
+      result = multi.search(this.$options.messages[language], path, params);
     }
     if (!result) {
-      result = multi.search(multi.languages[ language ], path, params)
+      result = multi.search(multi.languages[language], path, params);
     }
-    return result
-  }
+    return result;
+  };
 
   /* create directive, change content with modifications in components */
   Vue.directive('lang', {
-    bind: function (el, binding, vnode) {
-      multi.relaunchByDirective(el, binding, vnode)
+    bind: function bind(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
     },
-    update: function (el, binding, vnode) {
-      multi.relaunchByDirective(el, binding, vnode)
+    update: function update(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
     },
-    inserted: function (el, binding, vnode) {
-      multi.relaunchByDirective(el, binding, vnode)
+    inserted: function inserted(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
     },
-    componentUpdated: function (el, binding, vnode) {
-      multi.relaunchByDirective(el, binding, vnode)
+    componentUpdated: function componentUpdated(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
     },
-    unbind: function (el, binding, vnode) {
-      multi.relaunchByDirective(el, binding, vnode)
-    },
-  })
-
-}
+    unbind: function unbind(el, binding, vnode) {
+      multi.relaunchByDirective(el, binding, vnode);
+    }
+  });
+};
 
 /* export my class */
-export default MultiLanguage
+exports.default = MultiLanguage;
