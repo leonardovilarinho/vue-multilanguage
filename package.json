@@ -2,7 +2,7 @@
   "name": "vue-multilanguage",
   "version": "2.2.1",
   "description": "Multilanguage easy support to VueJS 2",
-  "main": "src/vue-multilanguage.js",
+  "main": "dist/vue-multilanguage.js",
   "module": "src/vue-multilanguage.js",
   "scripts": {
     "test": "echo \"No support\"",
