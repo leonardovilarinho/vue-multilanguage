@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Multilanguage easy support to VueJS 2",
   "main": "dist/vue-multilanguage.js",
   "module": "src/vue-multilanguage.js",
@@ -19,8 +19,8 @@
     "front-end"
   ],
   "author": "Leonardo Vilarinho",
-  "contributors": [{ 
-    "name": "Matthew Dean", 
+  "contributors": [{
+    "name": "Matthew Dean",
     "url": "https://github.com/matthew-dean"
   }],
   "license": "ISC",

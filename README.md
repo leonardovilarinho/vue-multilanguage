@@ -126,11 +126,53 @@ computed: {
 	}
 }
 ```
+
+### Change the current language
+
 To change the language currently used by the system, change the `$ language` option value to any of its components, for example:
+
 ```js
 this.$language = 'en'
 ```
+
 If you don't set a default language on the language object, the default language will be automatically picked up in the client browser. If no language can still be found or you're in a JavaScript environment outside the browser (such as Node.js), then the default language becomes the first language listed.
+
+	this.$language = 'en'
+
+As of version 2.2.3, the whole thing is to change the language by firing a `$emit` named `changeLang`, thus making it easier for children who change the language of the site to propagate a change to their parent, for example:
+
+```vue
+<template>
+    <div id="app">
+    <h1 v-lang.title.project v-show="false"></h1>
+    ...
+    <lv-side-menu @changeLang="changeLanguage"></lv-side-menu>
+    ...
+    </div>
+</template>
+
+<script>
+import LvSideMenu from './components/template/SideMenu.vue'
+export default {
+    name: 'app',
+    components: { LvSideMenu },
+    methods: {
+        changeLanguage(lang) {
+            this.$language = lang
+        }
+    },
+}
+</script>
+```
+
+In the example given, the `App` component is the parent of `LvSideMenu`, this child will try to change the language of the site, then it will issue the `changeLang` event, which must be captured by the parent so that the language defined by the child is propagated .
+
+
+**Note:** See that in `App` I have the `h1` hidden element, it makes use of the `v-lang` directive, because without it the component would not be updated.
+
+### LocalStorage
+
+As of version 2.2.3 of vue-multilanguage, we are writing the current language in the `vue-lang` variable of the localStorage, causing even the page refresh language to remain active.
 
 ### Contributing
 

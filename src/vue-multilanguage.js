@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj; };
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 var MultiLanguage = function () {
   function MultiLanguage() {
@@ -50,6 +50,10 @@ var MultiLanguage = function () {
         userLang = Object.keys(this.languages)[0];
       }
       this.userLang = userLang;
+      if (localStorage.getItem('vue-lang') !== null) {
+        this.userLang = localStorage.getItem('vue-lang')
+      }
+      window.localStorage.setItem('vue-lang', this.userLang)
     }
 
     /* get modifiers from directive, find in languages object and replace values */
@@ -165,15 +169,6 @@ var MultiLanguage = function () {
           match = path;
         }
       }
-      /* if language = 'en', match a 'en-CA' language key */
-      // if( !match ) {
-      //   Object.keys(this.languages).forEach((path) => {
-      //     path = path.toLowerCase()
-      //     if(lang.toLowerCase() === path.substr(0,2)) {
-      //       match = path
-      //     }
-      //   })
-      // }
       );return match;
     }
   }]);
@@ -196,6 +191,22 @@ MultiLanguage.install = function (Vue, languages) {
     Vue.util.defineReactive(this, '$language', multi.userLang);
     init.call(this, options);
   };
+
+  Vue.mixin({
+      data() {
+        return { isToggleLanguage: false }
+      },
+      created: function () {
+        this.$language = window.localStorage.getItem('vue-lang')
+        this.$forceUpdate()
+      },
+      watch: {
+        $language(val) {
+          window.localStorage.setItem('vue-lang', val)
+          this.$emit('changeLang', val)
+        }
+      },
+  })
 
   Vue.prototype.translate = function (language, path) {
     var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};

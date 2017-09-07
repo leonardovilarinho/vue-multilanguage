@@ -2,7 +2,7 @@
   <div id="app">
     <lv-menu-top></lv-menu-top>
     <lv-content></lv-content>
-    <lv-menu-bottom></lv-menu-bottom>
+    <lv-menu-bottom @changeLang="changeLanguage"></lv-menu-bottom>
   </div>
 </template>
 
@@ -13,6 +13,11 @@ import LvContent from './Content.vue'
 
 export default {
   name: 'app',
-  components: {LvMenuTop, LvMenuBottom, LvContent}
+  components: {LvMenuTop, LvMenuBottom, LvContent},
+  methods: {
+    changeLanguage(lang) {
+      this.$language = lang
+    }
+  },
 }
 </script>

@@ -14,10 +14,6 @@ Use o seguinte comando para instalar o plugin como dependência:
 
 	npm install vue-multilanguage --save
 
-#### Para instalação standalone
-
-Para instalar, copie o arquivo `src/es6.js` para sua pasta de plugins.
-
 
 ### Começando
 
@@ -61,7 +57,7 @@ Podemos ainda definir parâmetros sem nome, usando `{0}`, assim na diretiva pass
 </template>
 <script>
 	export default {
-		data() { return {} }
+		data() { return {} },
 		messages: {
 			en: {
 				hi: 'Hello'
@@ -84,7 +80,7 @@ Você também pode incorporar o idioma padrão diretamente no seu template, desd
 </template>
 <script>
 	export default {
-		data() { return {} }
+		data() { return {} },
 		messages: {
 			pt: {
 				hi: 'Olá'
@@ -114,7 +110,7 @@ Note que você ainda pode usar substituições ao configurar mensagens padrão c
 ```
 
 ### Uso na programação
-Existe um método `translate 'que você pode usar para recuperar uma tradução. Por exemplo:
+Existe um método `translate` que você pode usar para recuperar uma tradução. Por exemplo:
 
 ```js
 computed: {
@@ -124,11 +120,45 @@ computed: {
 }
 ```
 
+### Alterando a linguagem atual
+
 Para alterar a linguagem atualmente usada pelo sistema altere o valor da opção `$language` em qualquer um de seus componentes por exemplo:
 
 	this.$language = 'en'
 
-A linguagem padrão será pego automaticamente no navegador do cliente, caso não encontre-mos, o primeiro idioma da lista será usado.
+A partir da versão 2.2.3, todo componente que mudar a linguagem estará disparando um `$emit` nomeado `changeLang`, facilitando assim que filhos que alteram o idioma do site propaguem a alteração para seu pai, por exemplo:
+
+```vue
+<template>
+    <div id="app">
+    <h1 v-lang.title.project v-show="false"></h1>
+    ...
+    <lv-side-menu @changeLang="changeLanguage"></lv-side-menu>
+    ...
+    </div>
+</template>
+
+<script>
+import LvSideMenu from './components/template/SideMenu.vue'
+export default {
+    name: 'app',
+    components: { LvSideMenu },
+    methods: {
+        changeLanguage(lang) {
+            this.$language = lang
+        }
+    },
+}
+</script>
+```
+
+No exemplo dado, o componente `App` é pai de `LvSideMenu`, esse filho tratará de mudar o idioma do site, então ele emitirá o evento `changeLang`, que deve ser captado pelo pai para que a linguagem definida pelo filho seja propagada.
+
+**Nota:** Veja que em `App` tenho o elemento oculto `h1`, ele faz uso da diretiva `v-lang`, pois sem ela o componente não seria atualizado.
+
+### LocalStorage
+
+A partir da versão 2.2.3 do vue-multilanguage, estamos gravando a linguagem atual na variável `vue-lang` do localStorage, fazendo com que mesmo ao atualizar a página a linguagem permaneça ativa.
 
 ### Contribuindo
 
