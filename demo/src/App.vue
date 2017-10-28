@@ -2,7 +2,10 @@
   <div id="app">
     <lv-menu-top></lv-menu-top>
     <lv-content></lv-content>
-    <lv-menu-bottom @changeLang="changeLanguage"></lv-menu-bottom>
+    <lv-menu-bottom></lv-menu-bottom>
+    <transition name="fade">
+      <p v-lang.title></p>
+    </transition>
   </div>
 </template>
 
@@ -13,11 +16,15 @@ import LvContent from './Content.vue'
 
 export default {
   name: 'app',
-  components: {LvMenuTop, LvMenuBottom, LvContent},
-  methods: {
-    changeLanguage(lang) {
-      this.$language = lang
-    }
-  },
+  components: {LvMenuTop, LvMenuBottom, LvContent}
 }
 </script>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
+</style>

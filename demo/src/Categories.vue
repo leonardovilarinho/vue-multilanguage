@@ -11,6 +11,5 @@
 <script>
 export default{
 	name: 'lv-categories',
-
 }
 </script>

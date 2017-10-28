@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<i>{{title}}: </i>
-		<button v-lang.language="'PT'" @click="$language = 'pt'"></button>
-    	<button v-lang.language="'EN'" @click="$language = 'en'"></button>
+		<button v-lang.language="'PT'" @click="language = 'pt'"></button>
+    	<button v-lang.language="'EN'" @click="language = 'en'"></button>
 	</div>
 </template>
 
@@ -20,7 +20,7 @@ export default{
 	},
 	computed: {
 		title() {
-			return this.translate(this.$language, 'title')
+			return this.translate('title')
 		}
 	},
 }

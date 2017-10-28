@@ -9,7 +9,7 @@ export default{
 	name: 'lv-menu',
 	computed: {
 		title() {
-			return this.translate(this.$language, 'title')
+			return this.translate('title')
 		}
 	},
 }

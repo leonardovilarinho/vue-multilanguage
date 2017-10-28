@@ -1,7 +1,7 @@
 <template>
 	<div>
     <lv-categories></lv-categories>
-		<h3 v-lang.content.example='user'>Welcome {name}, you have {friends} friends</h3>
+		<h3 v-lang.content.example='user'></h3>
 	</div>
 </template>
 
@@ -14,7 +14,10 @@ export default{
   messages: {
     pt: {
       example: 'Bem-vindo {name}, você tem {friends} amigos'
-    }
+		},
+		en: {
+			example: 'Welcome {name}, you have {friends} friends'
+		}
   },
 	data() {
   	return {
