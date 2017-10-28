@@ -1,6 +1,5 @@
 demo/.DS_Store
 demo/node_modules/
-demo/dist/
 demo/npm-debug.log
 demo/yarn-error.log
 .DS_Store
