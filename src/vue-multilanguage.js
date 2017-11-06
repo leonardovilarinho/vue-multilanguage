@@ -35,6 +35,8 @@ class MultiLanguage {
     
     if (localStorage.getItem('vue-lang') !== null)
       this.userLang = localStorage.getItem('vue-lang')
+
+    console.log('Linguagem: ' + this.userLang)
     
     window.localStorage.setItem('vue-lang', this.userLang)
   }
@@ -146,11 +148,12 @@ MultiLanguage.install = function(Vue, languages){
 
   Vue.mixin({
     data() {
-      return { language: multi.defaultLanguage }
+      return { language: window.localStorage.getItem('vue-lang') }
     },
     watch: {
       language(value) {
           multi.defaultLanguage = value
+          window.localStorage.setItem('vue-lang', value)
           bus.$emit('lang-changed', multi.defaultLanguage)
           this.$forceUpdate()
       }
