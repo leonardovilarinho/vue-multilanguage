@@ -35,8 +35,6 @@ class MultiLanguage {
     
     if (localStorage.getItem('vue-lang') !== null)
       this.userLang = localStorage.getItem('vue-lang')
-
-    console.log('Linguagem: ' + this.userLang)
     
     window.localStorage.setItem('vue-lang', this.userLang)
   }
