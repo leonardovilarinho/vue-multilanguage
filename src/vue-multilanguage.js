@@ -28,14 +28,16 @@ class MultiLanguage {
       userLang = this.matchLanguage(userLang) || this.matchLanguage(userLang.substr(0, 2))
     }
 
+    const languageKeys = Object.keys(this.languages)
+    
     if ( !userLang )
-      userLang = Object.keys(this.languages)[0]
-
+      userLang = languageKeys[0]
+    
     this.userLang = userLang
-    
-    if (localStorage.getItem('vue-lang') !== null)
+        
+    if (languageKeys.includes(localStorage.getItem('vue-lang')))
       this.userLang = localStorage.getItem('vue-lang')
-    
+        
     window.localStorage.setItem('vue-lang', this.userLang)
   }
 
