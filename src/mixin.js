@@ -14,6 +14,15 @@ let _with = null
  */
 export const register = (initial, languages, save) => {
 
+  if (save) {
+    const lang = window.localStorage.getItem('vueml-lang')
+    if (lang === null) {
+      window.localStorage.setItem('vueml-lang', initial)
+    } else {
+      initial = lang
+    }
+  }
+
   if (initial === null) {
     return console.error('[vue-multilanguage] initial language is null, please set a value')
   }
@@ -37,6 +46,9 @@ export const register = (initial, languages, save) => {
           }
 
           if (currentGlobal !== param) {
+            if (save) {
+              window.localStorage.setItem('vueml-lang', param)
+            }
             EventBus.$emit('vueml-language-changed', param)
           }
         },
