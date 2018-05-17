@@ -90,15 +90,17 @@ export const register = (initial, languages, save) => {
           })
 
           if (db !== false) {
-            if (_with.length > 1) {
-              _with.forEach(w => {
-                const replace = `{${w.name}}`
-                while (db.includes(replace)) {
-                  db = db.replace(replace, w.value)
-                }
-              })
-            } else if (_with !== null) {
-              db = db.replace(/\{0\}/g, _with[0])
+            if (Array.isArray(_with)) {
+              if (_with.length > 1) {
+                _with.forEach(w => {
+                  const replace = `{${w.name}}`
+                  while (db.includes(replace)) {
+                    db = db.replace(replace, w.value)
+                  }
+                })
+              } else if (_with !== null) {
+                db = db.replace(/\{0\}/g, _with[0])
+              }
             }
             _with = null
             return db
