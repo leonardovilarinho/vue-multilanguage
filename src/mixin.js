@@ -18,7 +18,6 @@ export const register = (initial, languages, save) => {
     return console.error('[vue-multilanguage] initial language is null, please set a value')
   }
   currentGlobal = initial
-  console.log(initial, languages, save)
   return {
     /**
      * Called before create component
@@ -61,11 +60,9 @@ export const register = (initial, languages, save) => {
           }
           let db = current[0].database
 
-          if ('messages' in self.$options) {
-            if (path in self.$options.messages) {
-              _with = self.$options.messages[path]._with
-              path = self.$options.messages[path].path
-            }
+          if (path in self) {
+            _with = self[path]._with
+            path = self[path].path
           }
 
           /** @type {Array} */

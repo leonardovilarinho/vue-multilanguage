@@ -18,8 +18,13 @@ import { MLBuilder } from '../../src'
 
 export default {
   name: 'app',
-  messages: {
-    myMessage: new MLBuilder('msg').with('f', 5).with('l', 456)
+  data () {
+    return { friends: 5 }
+  },
+  computed: {
+    myMessage () {
+      return new MLBuilder('msg').with('f', this.friends).with('l', 406)
+    }
   }
 }
 </script>

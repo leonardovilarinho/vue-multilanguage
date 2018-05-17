@@ -1,120 +1,124 @@
-# Multi-Language plugin for Vue.js
+# vue-multilanguage: control of languages in vuejs
 
-> A very easy-to-use Vue.js plugin that provides multi-language support
+> We will help you to control the languages in your app for yours components
 
-### Dependencies
-- Vue.js 2.0+
+## Installation
 
-### Installation
-We have two methods of installation; you can use `npm` or a standalone.
+```bash
+# yarn
+yarn add vue-multilanguage
+# npm
+npm install vue-multilanguage --save
+```
 
-#### To install with NPM
+## Get Started
 
-Use the following command to install as a dependency:
+Create the `ml.js` file to define your multilanguage settings and languages:
 
-	npm install vue-multilanguage --save
+```javascript
+import Vue from 'vue'
+import { MLInstaller, MLCreate, MLanguage } from 'vue-multilanguage'
 
-#### For standalone installation
+Vue.use(MLInstaller)
 
-To install, just copy the file `src/vue-multilanguage.js` to your plugins directory.
+export default new MLCreate({
+  initial: 'english',
+  save: true,
+  languages: [
+    new MLanguage('english').create({
+      title: 'Hello {0}!',
+      msg: 'You have {f} friends and {l} likes'
+    }),
 
-
-### Get Started
-
-Import MultiLanguage plugin and register it in the Vue globally:
-
-```js
-import MultiLanguage from 'vue-multilanguage'
-
-Vue.use(MultiLanguage, {
-	default: 'en',
-	en: {
-		hi: 'Hello',
-		welcome: 'Welcome, {name}'
-	},
-	pt: {
-		hi: 'Olá',
-		welcome: 'Bem-vindo, {name}'
-	},
+    new MLanguage('portuguese').create({
+      title: 'Oi {0}!',
+      msg: 'Você tem {f} amigos e {l} curtidas'
+    })
+  ]
 })
-```
-> **NOTE**: the plugin receives an object with the supported languages and its messages.
 
-### Using in Components
-
-In your components use the `v-lang` directive to request a translation, sending as modifiers the path of the text you want to display.
-```html
-<p v-lang.hi></p>
-```
-If the message to be displayed has parameters like `{name}`, send its values as the policy value.
-```html
-<p v-lang.welcome="{name: 'Vue.JS'}"></p>
 ```
 
-We can also define unnamed parameters, using `{0}`, so in the directive we would pass only the value to be exchanged, and no longer an object.
+More details:
 
-#### Embedding messages in components
+- **MLInstaller**: plugin class for install in Vue with Vue.use
+- **MLCreate**: class to define acl settings
+  - **initial**: first language, for startup with your app
+  - **save**: save current language in localStorage
+  - **languages**: array with your languages supported
+- **MLanguage**: class with language generator, create your language with it
+  - **create**: method for create language based in object param
 
-Sometimes it's easier to use the component model of Vue to manage your languages. You can set local messages in your `.vue` file like:
+For finish, in your `main.js` import the `ml`:
+
+```javascript
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import './ml'
+
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
+```
+
+## Use in components
+
+You can define messages inside your component:
 
 ```html
 <template>
-	<p v-lang.hi></p>
+  <div id="app">
+    <p v-text="$ml.get('myMessage')" />
+  </div>
 </template>
+
 <script>
-	export default {
-		data() { return {} }
-		messages: {
-			en: {
-				hi: 'Hello'
-			},
-			pt: {
-				hi: 'Olá'
-			}
-		}
-	}
-</script>
-```
+import { MLBuilder } from 'vue-multilanguage'
 
-The vue-multilanguage plugin will first look at the `messages` option in the local component before looking at globally-defined messages.
-
-
-### Programmatic Usage
-
-There is a `translate` method that you can use to retrieve a translation. For example:
-
-```js
-computed: {
-	welcome()  {
-		return this.translate('welcome', 'Vue.JS')
-	}
+export default {
+  name: 'app',
+  data () {
+    return { friends: 5 }
+  },
+  computed: {
+    myMessage () {
+      return new MLBuilder('msg').with('f', this.friends).with('l', 406)
+    }
+  }
 }
+</script>
+
 ```
 
-### Change the current language
+You too get message direct in template:
 
-To change the language currently used by the system, change the `language` option value to any of its components, for example:
-
-```js
-this.language = 'en'
+```html
+<h1 v-text="$ml.with('VueJS').get('title')" />
 ```
 
-If you don't set a default language on the language object, the default language will be automatically picked up in the client browser. If no language can still be found or you're in a JavaScript environment outside the browser (such as Node.js), then the default language becomes the first language listed.
+E.g: display 'Hello VueJS'.
 
-	this.language = 'en'
+You can get list language in any component using `list` property:
 
+```html
+<button
+	v-for="lang in $ml.list"
+	:key="lang"
+	v-text="lang"
+/>
+```
 
+Finish, you can change current language in any component using `change` method:
 
-### LocalStorage
-
-As of version 2.2.3 of vue-multilanguage, we are writing the current language in the `vue-lang` variable of the localStorage, causing even the page refresh language to remain active.
-
-### Contributing
-
-To help in the development and expansion of this repository take a FORK to your account, after you have made your modifications do a PULL REQUEST, it will be parsed and included here since it helps the plugin.
-
-Before your PR, run `npm run build` to transpile ES6 to ES5 file.
-
-You can still contribute to the documentation, although your little one, support new languages, if you see something wrong in English correct it :)
-
-Thank you for contributing!
+```html
+<button
+	v-for="lang in $ml.list"
+	:key="lang"
+	@click="$ml.change(lang)"
+	v-text="lang"
+/>
+```
