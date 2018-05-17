@@ -1,8 +1,8 @@
-demo/.DS_Store
-demo/node_modules/
-demo/dist/
-demo/npm-debug.log
-demo/yarn-error.log
+example/.DS_Store
+example/node_modules/
+example/dist/
+example/npm-debug.log
+example/yarn-error.log
 .DS_Store
 node_modules/
 dist/
