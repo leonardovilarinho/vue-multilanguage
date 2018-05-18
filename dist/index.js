@@ -20,14 +20,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @property {String} initial
  * @property {Array} languages
  * @property {Boolean} [save]
-
+ * @property {Function} [middleware]
  */
 
 /**  @type {VueMultiLanguageParams} */
 var options = {
   initial: null,
   languages: [],
-  save: false
+  save: false,
+  middleware: null
 
   /** @type {VueConstructor} */
 };var Vue = void 0;

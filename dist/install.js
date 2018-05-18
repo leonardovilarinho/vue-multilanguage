@@ -14,6 +14,7 @@ var _mixin = require('./mixin');
  * @property {String} initial
  * @property {Array} languages
  * @property {Boolean} [save]
+ * @property {Function} [middleware]
  */
 
 /**
@@ -27,10 +28,14 @@ var _install = exports._install = function _install(_Vue, options) {
   var initial = options.initial,
       languages = options.languages,
       save = options.save,
-      acceptLocalLanguages = options.acceptLocalLanguages;
+      middleware = options.middleware;
 
 
-  var mixin = (0, _mixin.register)(initial, languages, save || false);
+  var mixin = (0, _mixin.register)(initial, languages, save || false, middleware || function (self, path) {
+    return path;
+  });
+
+  // @ts-ignore
   if (mixin !== undefined) {
     // @ts-ignore
     _Vue.mixin(mixin);
