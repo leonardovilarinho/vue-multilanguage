@@ -110,15 +110,17 @@ var register = exports.register = function register(initial, languages, save) {
           });
 
           if (db !== false) {
-            if (_with2.length > 1) {
-              _with2.forEach(function (w) {
-                var replace = '{' + w.name + '}';
-                while (db.includes(replace)) {
-                  db = db.replace(replace, w.value);
-                }
-              });
-            } else if (_with2 !== null) {
-              db = db.replace(/\{0\}/g, _with2[0]);
+            if (Array.isArray(_with2)) {
+              if (_with2.length > 1) {
+                _with2.forEach(function (w) {
+                  var replace = '{' + w.name + '}';
+                  while (db.includes(replace)) {
+                    db = db.replace(replace, w.value);
+                  }
+                });
+              } else if (_with2 !== null) {
+                db = db.replace(/\{0\}/g, _with2[0]);
+              }
             }
             _with2 = null;
             return db;

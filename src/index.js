@@ -7,14 +7,15 @@ import { _install } from './install'
  * @property {String} initial
  * @property {Array} languages
  * @property {Boolean} [save]
-
+ * @property {Function} [middleware]
  */
 
 /**  @type {VueMultiLanguageParams} */
 let options = {
   initial: null,
   languages: [],
-  save: false
+  save: false,
+  middleware: null
 }
 
 /** @type {VueConstructor} */

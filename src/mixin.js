@@ -11,8 +11,9 @@ let _with = null
  * @param {String} initial initial language
  * @param {Array} languages array with languages
  * @param {Boolean} save if save language in local storage
+ * @param {Function} middleware function for handler get
  */
-export const register = (initial, languages, save) => {
+export const register = (initial, languages, save, middleware) => {
 
   if (save) {
     const lang = window.localStorage.getItem('vueml-lang')
@@ -76,6 +77,8 @@ export const register = (initial, languages, save) => {
             _with = self[path]._with
             path = self[path].path
           }
+
+          path = middleware(self, path)
 
           /** @type {Array} */
           const splitedPath = path.split('.')

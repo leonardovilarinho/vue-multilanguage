@@ -5,7 +5,7 @@ Vue.use(MLInstaller)
 
 export default new MLCreate({
   initial: 'english',
-  save: true,
+  save: process.env.NODE_ENV === 'production',
   languages: [
     new MLanguage('english').create({
       title: 'Hello {0}!',
@@ -16,5 +16,10 @@ export default new MLCreate({
       title: 'Oi {0}!',
       msg: 'Você tem {f} amigos e {l} curtidas'
     })
-  ]
+  ],
+  middleware: (component, path) => {
+    // you can mutate path here
+    // you should return path updated
+    return path
+  }
 })

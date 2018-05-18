@@ -23,7 +23,7 @@ Vue.use(MLInstaller)
 
 export default new MLCreate({
   initial: 'english',
-  save: true,
+  save: process.env.NODE_ENV === 'production',
   languages: [
     new MLanguage('english').create({
       title: 'Hello {0}!',
@@ -36,7 +36,6 @@ export default new MLCreate({
     })
   ]
 })
-
 ```
 
 More details:
@@ -48,6 +47,21 @@ More details:
   - **languages**: array with your languages supported
 - **MLanguage**: class with language generator, create your language with it
   - **create**: method for create language based in object param
+
+You can define a middleware for execute before all `get` call. Use this for custom structure app, e.g:
+
+```javascript
+export default new MLCreate({
+  ...
+  middleware: (component, path) => {
+    const newPath = `${component.$options.name}.${path}`
+    // you should return newPath
+    return newPath
+  }
+})
+```
+
+PS: in example, all `$ml.get` call go concate path with component name.
 
 For finish, in your `main.js` import the `ml`:
 
@@ -91,7 +105,6 @@ export default {
   }
 }
 </script>
-
 ```
 
 You too get message direct in template:
