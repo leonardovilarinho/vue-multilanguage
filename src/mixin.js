@@ -73,7 +73,8 @@ export const register = (initial, languages, save, middleware) => {
           }
           let db = current[0].database
 
-          if (path in self) {
+          if (`ml${path}` in self) {
+            path = `ml${path}`
             _with = self[path]._with
             path = self[path].path
           }
@@ -94,16 +95,16 @@ export const register = (initial, languages, save, middleware) => {
 
           if (db !== false) {
             if (Array.isArray(_with)) {
-              if (_with.length > 1) {
-                _with.forEach(w => {
+              _with.forEach(w => {
+                if (typeof w !== 'object') {
+                  db = db.replace(/\{0\}/g, _with[0])
+                } else {
                   const replace = `{${w.name}}`
                   while (db.includes(replace)) {
                     db = db.replace(replace, w.value)
                   }
-                })
-              } else if (_with !== null) {
-                db = db.replace(/\{0\}/g, _with[0])
-              }
+                }
+              })
             }
             _with = null
             return db

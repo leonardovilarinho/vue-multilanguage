@@ -81,7 +81,7 @@ new Vue({
 
 ## Use in components
 
-You can define messages inside your component:
+You can define messages inside your component, use computed propertis with prefix `ml`
 
 ```html
 <template>
@@ -99,7 +99,7 @@ export default {
     return { friends: 5 }
   },
   computed: {
-    myMessage () {
+    mlmyMessage () {
       return new MLBuilder('msg').with('f', this.friends).with('l', 406)
     }
   }

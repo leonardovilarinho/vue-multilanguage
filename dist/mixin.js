@@ -5,6 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.register = undefined;
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // @ts-check
+
+
 var _vueEBus = require('vue-e-bus');
 
 var _vueEBus2 = _interopRequireDefault(_vueEBus);
@@ -15,7 +18,6 @@ var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// @ts-check
 var currentGlobal = null;
 /** @type {Array} */
 var _with2 = null;
@@ -93,7 +95,8 @@ var register = exports.register = function register(initial, languages, save, mi
           }
           var db = current[0].database;
 
-          if (path in self) {
+          if ('ml' + path in self) {
+            path = 'ml' + path;
             _with2 = self[path]._with;
             path = self[path].path;
           }
@@ -114,16 +117,16 @@ var register = exports.register = function register(initial, languages, save, mi
 
           if (db !== false) {
             if (Array.isArray(_with2)) {
-              if (_with2.length > 1) {
-                _with2.forEach(function (w) {
+              _with2.forEach(function (w) {
+                if ((typeof w === 'undefined' ? 'undefined' : _typeof(w)) !== 'object') {
+                  db = db.replace(/\{0\}/g, _with2[0]);
+                } else {
                   var replace = '{' + w.name + '}';
                   while (db.includes(replace)) {
                     db = db.replace(replace, w.value);
                   }
-                });
-              } else if (_with2 !== null) {
-                db = db.replace(/\{0\}/g, _with2[0]);
-              }
+                }
+              });
             }
             _with2 = null;
             return db;
