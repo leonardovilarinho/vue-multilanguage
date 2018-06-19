@@ -148,6 +148,15 @@ var register = exports.register = function register(initial, languages, save, mi
           return languages.map(function (l) {
             return l.name;
           });
+        },
+        
+        /**
+         * get languages database list
+         */
+        get db() {
+          return languages.map(function (l) {
+            return l.database;
+          });
         }
       };
 
