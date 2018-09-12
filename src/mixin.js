@@ -123,6 +123,15 @@ export const register = (initial, languages, save, middleware) => {
          */
         get list() {
           return languages.map(l => l.name)
+        },
+        
+        /**
+         * get languages database list
+         */
+        get db() {
+          return languages.map(function (l) {
+            return l.database;
+          });
         }
       }
 
