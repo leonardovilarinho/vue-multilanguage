@@ -107,7 +107,7 @@ export default {
 </script>
 ```
 
-You too get message direct in template:
+You can also get message direct in template:
 
 ```html
 <h1 v-text="$ml.with('VueJS').get('title')" />
