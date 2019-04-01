@@ -8,15 +8,13 @@ exports.register = undefined;
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // @ts-check
 
 
-var _vueEBus = require('vue-e-bus');
-
-var _vueEBus2 = _interopRequireDefault(_vueEBus);
-
 var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EventBus = new _vue2.default();
 
 var currentGlobal = null;
 /** @type {Array} */
@@ -70,7 +68,7 @@ var register = exports.register = function register(initial, languages, save, mi
             if (save) {
               window.localStorage.setItem('vueml-lang', param);
             }
-            _vueEBus2.default.$emit('vueml-language-changed', param);
+            EventBus.$emit('vueml-language-changed', param);
           }
         },
         with: function _with(name) {
@@ -149,7 +147,7 @@ var register = exports.register = function register(initial, languages, save, mi
             return l.name;
           });
         },
-        
+
         /**
          * get languages database list
          */
@@ -160,7 +158,7 @@ var register = exports.register = function register(initial, languages, save, mi
         }
       };
 
-      _vueEBus2.default.$on('vueml-language-changed', function (newLanguage) {
+      EventBus.$on('vueml-language-changed', function (newLanguage) {
         currentGlobal = newLanguage;
         _this.$forceUpdate();
       });
