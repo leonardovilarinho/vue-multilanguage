@@ -1,6 +1,6 @@
 // @ts-check
-import EventBus from 'vue-e-bus'
 import Vue from 'vue'
+const EventBus = new Vue()
 
 let currentGlobal = null
 /** @type {Array} */
