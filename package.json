@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "4.0.7",
+  "version": "4.0.8",
   "description": "Multilanguage easy support to Vue.js 2",
   "main": "dist/index.js",
   "scripts": {
@@ -20,6 +20,26 @@
     {
       "name": "Matthew Dean",
       "url": "https://github.com/matthew-dean"
+    },
+    {
+      "name": "Dyaa Eldin Moustafa",
+      "url": "https://github.com/dyaa"
+    },
+    {
+      "name": "weineel",
+      "url": "https://github.com/weineel"
+    },
+    {
+      "name": "andlav",
+      "url": "https://github.com/andlav"
+    },
+    {
+      "name": "Guilherme Mamedio",
+      "url": "https://github.com/mamedioguilherme1"
+    },
+    {
+      "name": "Adam",
+      "url": "https://github.com/mercs600"
     }
   ],
   "license": "MIT",
