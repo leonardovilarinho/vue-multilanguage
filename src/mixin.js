@@ -1,5 +1,6 @@
 // @ts-check
 import Vue from 'vue'
+import { GettingStrategy } from './enums/getting-strategy'
 const EventBus = new Vue()
 
 let currentGlobal = null
@@ -7,14 +8,14 @@ let currentGlobal = null
 let _with = null
 /**
  * Register all plugin actions
- * 
+ *
  * @param {String} initial initial language
  * @param {Array} languages array with languages
  * @param {Boolean} save if save language in local storage
  * @param {Function} middleware function for handler get
+ * @param {String} gettingStrategy translation getting strategy
  */
-export const register = (initial, languages, save, middleware) => {
-
+export const register = (initial, languages, save, middleware, gettingStrategy) => {
   if (save) {
     const lang = window.localStorage.getItem('vueml-lang')
     if (lang === null) {
@@ -67,6 +68,8 @@ export const register = (initial, languages, save, middleware) => {
         },
 
         get (path) {
+          const initialPath = path;
+
           const current = languages.filter(l => l.name === currentGlobal)
           if (current.length > 1) {
             return console.error(`[vue-multilanguage] you define '${currentGlobal}' language two or more times`)
@@ -88,8 +91,14 @@ export const register = (initial, languages, save, middleware) => {
             if (ph in db) {
               db = db[ph]
             } else {
-              console.error(`[vue-multilanguage] path '${path}' unknown from '${ph}'`)
-              return (db = false)
+              if (gettingStrategy !== GettingStrategy.RETURN_PATH_BY_DEFAULT_WITHOUT_ERROR) {
+                console.error(`[vue-multilanguage] path '${path}' unknown from '${ph}'`)
+              }
+              if (gettingStrategy === GettingStrategy.RETURN_PATH_BY_DEFAULT || gettingStrategy === GettingStrategy.RETURN_PATH_BY_DEFAULT_WITHOUT_ERROR){
+                db = initialPath;
+              } else {
+                return (db = false)
+              }
             }
           })
 
@@ -107,6 +116,7 @@ export const register = (initial, languages, save, middleware) => {
               })
             }
             _with = null
+
             return db
           }
         },
@@ -124,7 +134,7 @@ export const register = (initial, languages, save, middleware) => {
         get list() {
           return languages.map(l => l.name)
         },
-        
+
         /**
          * get languages database list
          */

@@ -8,6 +8,7 @@ import { _install } from './install'
  * @property {Array} languages
  * @property {Boolean} [save]
  * @property {Function} [middleware]
+ * @property {String} [gettingStrategy]
  */
 
 /**  @type {VueMultiLanguageParams} */
@@ -15,13 +16,14 @@ let options = {
   initial: null,
   languages: [],
   save: false,
-  middleware: null
+  middleware: null,
+  gettingStrategy: ''
 }
 
 /** @type {VueConstructor} */
 let Vue
 
-export const MLInstaller = 
+export const MLInstaller =
 /**
    * function for install plugin with Vue.use
    * @param {VueConstructor} _Vue Vue constructor
@@ -40,7 +42,7 @@ export class MLCreate {
     _install(Vue, options)
   }
 }
-  
+
 export class MLanguage {
   /**
    * Create new language

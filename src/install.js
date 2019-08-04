@@ -1,6 +1,7 @@
 // @ts-check
 import { VueConstructor } from 'vue'
 import { register } from './mixin'
+import { GettingStrategy } from './enums/getting-strategy'
 
 /**
  * @typedef {Object} VueMultiLanguageParams
@@ -17,13 +18,14 @@ import { register } from './mixin'
  * @param {VueMultiLanguageParams} options
  */
 export const _install = (_Vue, options) => {
-  const { initial, languages, save, middleware } = options
+  const { initial, languages, save, middleware, gettingStrategy } = options
 
   const mixin = register(
     initial,
     languages,
     save || false,
-    middleware || ((self, path) => path)
+    middleware || ((self, path) => path),
+    gettingStrategy || GettingStrategy.DEFAULT
   )
 
 // @ts-ignore

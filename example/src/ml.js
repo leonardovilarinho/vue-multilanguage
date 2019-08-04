@@ -21,5 +21,6 @@ export default new MLCreate({
     // you can mutate path here
     // you should return path updated
     return path
-  }
+  },
+  gettingStrategy: 'default'
 })
