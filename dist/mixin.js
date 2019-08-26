@@ -12,6 +12,8 @@ var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
 
+var _gettingStrategy = require('./enums/getting-strategy');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EventBus = new _vue2.default();
@@ -21,14 +23,14 @@ var currentGlobal = null;
 var _with2 = null;
 /**
  * Register all plugin actions
- * 
+ *
  * @param {String} initial initial language
  * @param {Array} languages array with languages
  * @param {Boolean} save if save language in local storage
  * @param {Function} middleware function for handler get
+ * @param {String} gettingStrategy translation getting strategy
  */
-var register = exports.register = function register(initial, languages, save, middleware) {
-
+var register = exports.register = function register(initial, languages, save, middleware, gettingStrategy) {
   if (save) {
     var lang = window.localStorage.getItem('vueml-lang');
     if (lang === null) {
@@ -85,6 +87,8 @@ var register = exports.register = function register(initial, languages, save, mi
           return this;
         },
         get: function get(path) {
+          var initialPath = path;
+
           var current = languages.filter(function (l) {
             return l.name === currentGlobal;
           });
@@ -108,8 +112,14 @@ var register = exports.register = function register(initial, languages, save, mi
             if (ph in db) {
               db = db[ph];
             } else {
-              console.error('[vue-multilanguage] path \'' + path + '\' unknown from \'' + ph + '\'');
-              return db = false;
+              if (gettingStrategy !== _gettingStrategy.GettingStrategy.RETURN_PATH_BY_DEFAULT_WITHOUT_ERROR) {
+                console.error('[vue-multilanguage] path \'' + path + '\' unknown from \'' + ph + '\'');
+              }
+              if (gettingStrategy === _gettingStrategy.GettingStrategy.RETURN_PATH_BY_DEFAULT || gettingStrategy === _gettingStrategy.GettingStrategy.RETURN_PATH_BY_DEFAULT_WITHOUT_ERROR) {
+                db = initialPath;
+              } else {
+                return db = false;
+              }
             }
           });
 
@@ -127,6 +137,7 @@ var register = exports.register = function register(initial, languages, save, mi
               });
             }
             _with2 = null;
+
             return db;
           }
         },

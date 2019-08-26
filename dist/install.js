@@ -9,6 +9,8 @@ var _vue = require('vue');
 
 var _mixin = require('./mixin');
 
+var _gettingStrategy = require('./enums/getting-strategy');
+
 /**
  * @typedef {Object} VueMultiLanguageParams
  * @property {String} initial
@@ -23,21 +25,21 @@ var _mixin = require('./mixin');
  * @param {VueConstructor} _Vue
  * @param {VueMultiLanguageParams} options
  */
-// @ts-check
 var _install = exports._install = function _install(_Vue, options) {
   var initial = options.initial,
       languages = options.languages,
       save = options.save,
-      middleware = options.middleware;
+      middleware = options.middleware,
+      gettingStrategy = options.gettingStrategy;
 
 
   var mixin = (0, _mixin.register)(initial, languages, save || false, middleware || function (self, path) {
     return path;
-  });
+  }, gettingStrategy || _gettingStrategy.GettingStrategy.DEFAULT);
 
   // @ts-ignore
   if (mixin !== undefined) {
     // @ts-ignore
     _Vue.mixin(mixin);
   }
-};
+}; // @ts-check
