@@ -151,6 +151,13 @@ var register = exports.register = function register(initial, languages, save, mi
         },
 
         /**
+         * get event bus
+         */
+        get bus() {
+          return EventBus;
+        },
+
+        /**
          * get languages list
          */
         get list() {

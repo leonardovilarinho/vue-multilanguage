@@ -129,6 +129,13 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
         },
 
         /**
+         * get event bus
+         */
+        get bus () {
+          return EventBus
+        },
+
+        /**
          * get languages list
          */
         get list() {

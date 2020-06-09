@@ -2,6 +2,7 @@
 import { VueConstructor } from 'vue'
 import { register } from './mixin'
 import { GettingStrategy } from './enums/getting-strategy'
+import directive from './directive'
 
 /**
  * @typedef {Object} VueMultiLanguageParams
@@ -32,5 +33,6 @@ export const _install = (_Vue, options) => {
   if (mixin !== undefined) {
     // @ts-ignore
     _Vue.mixin(mixin)
+    directive(_Vue, initial)
   }
 }
