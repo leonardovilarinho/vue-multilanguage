@@ -9,12 +9,18 @@ export default new MLCreate({
   languages: [
     new MLanguage('english').create({
       title: 'Hello {0}!',
-      msg: 'You have {f} friends and {l} likes'
+      msg: 'You have {f} friends and {l} likes',
+      fruits: ['Apple', 'Pineapple']
     }),
 
     new MLanguage('portuguese').create({
       title: 'Oi {0}!',
-      msg: 'Você tem {f} amigos e {l} curtidas'
+      logout: 'Olá {name}, clique aqui para sair {friends}',
+      infos: {
+        friends: 'Diga olá para seus amigos'
+      },
+      msg: 'Você tem {f} amigos e {l} curtidas',
+      fruits: ['Maçã', 'Abacaxi']
     })
   ],
   middleware: (component, path) => {
