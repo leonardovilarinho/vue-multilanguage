@@ -17,9 +17,9 @@ let _with = null
  */
 export const register = (initial, languages, save, middleware, gettingStrategy) => {
   if (save) {
-    const lang = window.localStorage.getItem('vueml-lang')
+    const lang = localStorage.getItem('vueml-lang')
     if (lang === null) {
-      window.localStorage.setItem('vueml-lang', initial)
+      localStorage.setItem('vueml-lang', initial)
     } else {
       initial = lang
     }
@@ -49,7 +49,7 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
 
           if (currentGlobal !== param) {
             if (save) {
-              window.localStorage.setItem('vueml-lang', param)
+              localStorage.setItem('vueml-lang', param)
             }
             EventBus.$emit('vueml-language-changed', param)
           }
