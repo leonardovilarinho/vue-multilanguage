@@ -1,6 +1,6 @@
 {
   "name": "vue-multilanguage",
-  "version": "4.0.16",
+  "version": "4.0.17",
   "description": "Multilanguage easy support to Vue.js 2",
   "main": "dist/index.js",
   "scripts": {
