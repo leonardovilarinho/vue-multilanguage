@@ -3,6 +3,26 @@ import Vue from 'vue'
 import { GettingStrategy } from './enums/getting-strategy'
 const EventBus = new Vue()
 
+function setCookie(name, value) {
+  var expires = "";
+  var date = new Date();
+  date.setTime(date.getTime() + 1000000 * 24 * 60 * 60 * 1000);
+  expires = "; expires=" + date.toUTCString();
+
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
 let currentGlobal = null
 /** @type {Array} */
 let _with = null
@@ -25,7 +45,12 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
         initial = lang
       }
     } catch(error) {
-       initial = languages[0].name
+       const lang = getCookie('vueml-lang')
+        if (lang === null) {
+          setCookie('vueml-lang', initial)
+        } else {
+          initial = lang
+        }
     }
   }
 
@@ -57,7 +82,7 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
                 localStorage.setItem('vueml-lang', param)
               }
             } catch (error) {
-              window.parent.postMessage(JSON.stringify({ type: "local", value: param }), "*");
+              setCookie('vueml-lang', param)
             }
 
             EventBus.$emit('vueml-language-changed', param)
