@@ -17,11 +17,15 @@ let _with = null
  */
 export const register = (initial, languages, save, middleware, gettingStrategy) => {
   if (save) {
-    const lang = localStorage.getItem('vueml-lang')
-    if (lang === null) {
-      localStorage.setItem('vueml-lang', initial)
-    } else {
-      initial = lang
+    try {
+      const lang = localStorage.getItem('vueml-lang')
+      if (lang === null) {
+        localStorage.setItem('vueml-lang', initial)
+      } else {
+        initial = lang
+      }
+    } cacth(error) {
+       initial = languages[0].name
     }
   }
 
@@ -48,9 +52,14 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
           }
 
           if (currentGlobal !== param) {
-            if (save) {
-              localStorage.setItem('vueml-lang', param)
+            try {
+              if (save) {
+                localStorage.setItem('vueml-lang', param)
+              }
+            } catch (error) {
+              window.parent.postMessage(JSON.stringify({ type: "local", value: param }), "*");
             }
+
             EventBus.$emit('vueml-language-changed', param)
           }
         },
