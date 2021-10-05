@@ -32,11 +32,15 @@ var _with2 = null;
  */
 var register = exports.register = function register(initial, languages, save, middleware, gettingStrategy) {
   if (save) {
-    var lang = window.localStorage.getItem('vueml-lang');
-    if (lang === null) {
-      window.localStorage.setItem('vueml-lang', initial);
-    } else {
-      initial = lang;
+    try {
+      var lang = localStorage.getItem('vueml-lang');
+      if (lang === null) {
+        localStorage.setItem('vueml-lang', initial);
+      } else {
+        initial = lang;
+      }
+    } catch (error) {
+      initial = languages[0].name;
     }
   }
 
@@ -67,9 +71,14 @@ var register = exports.register = function register(initial, languages, save, mi
           }
 
           if (currentGlobal !== param) {
-            if (save) {
-              window.localStorage.setItem('vueml-lang', param);
+            try {
+              if (save) {
+                localStorage.setItem('vueml-lang', param);
+              }
+            } catch (error) {
+              window.parent.postMessage(JSON.stringify({ type: "local", value: param }), "*");
             }
+
             EventBus.$emit('vueml-language-changed', param);
           }
         },
