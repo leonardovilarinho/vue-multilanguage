@@ -24,7 +24,7 @@ export const register = (initial, languages, save, middleware, gettingStrategy) 
       } else {
         initial = lang
       }
-    } cacth(error) {
+    } catch(error) {
        initial = languages[0].name
     }
   }
